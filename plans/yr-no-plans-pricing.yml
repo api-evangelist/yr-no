@@ -1,0 +1,45 @@
+name: Yr / MET Weather API Plans and Pricing
+description: >-
+  The Yr and MET Norway Weather API is offered entirely free of charge with no
+  paid tiers, subscriptions, or per-call billing. Usage is governed by the
+  MET Weather API Terms of Service, which requires proper identification via
+  the User-Agent header and compliance with rate limits. The service is funded
+  by the Norwegian government through the Norwegian Meteorological Institute
+  and the Norwegian Broadcasting Corporation (NRK).
+version: '0.1'
+specificationVersion: '0.1'
+url: https://developer.yr.no/doc/TermsOfService/
+plans:
+  - name: Free (Open)
+    description: >-
+      Unlimited free access to all MET Weather API endpoints. No account
+      registration, API key, or payment is required. Callers must identify
+      themselves using a descriptive User-Agent header containing an application
+      or domain name and a contact email or URL. All data is licensed under
+      CC BY 4.0.
+    url: https://developer.yr.no/doc/TermsOfService/
+    isFree: true
+    rateLimits:
+      - name: Requests per second per application
+        value: 20
+        unit: requests/second
+        scope: per application (aggregate across all clients)
+    quotas: []
+    features:
+      - Access to all public MET Weather API endpoints
+      - Locationforecast 2.0 (global 9-day forecasts)
+      - MetAlerts 2.0 (weather warnings)
+      - Nowcast 2.0 (Nordic short-range forecasts)
+      - Sunrise 3.0 (sun/moon events)
+      - Frost 0.9 (historical observations)
+      - Oceanforecast 2.0 (marine forecasts)
+      - Radar 2.0 (Nordic radar composites)
+      - Air Quality Forecast 0.1 (Norway)
+      - Aviation weather products
+      - CC BY 4.0 licensed open data
+    authentication:
+      type: UserAgent
+      description: >-
+        No API key. Requests must include a User-Agent header with application
+        name/URL and contact information, e.g.:
+        "myapp.example.com support@example.com"

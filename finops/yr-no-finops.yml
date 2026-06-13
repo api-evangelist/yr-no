@@ -1,0 +1,100 @@
+name: Yr / MET Weather API FinOps Profile
+description: >-
+  FinOps Framework 1.0 FOCUS-aligned cost and usage profile for the MET Norway
+  Weather API (Yr). Because the API is entirely free and publicly funded, there
+  are no direct monetary charges to API consumers. However, organizations
+  integrating the API should account for indirect infrastructure costs,
+  compliance overhead, and downstream data handling costs.
+version: '1.0'
+specificationVersion: '1.0'
+focusVersion: '1.0'
+url: https://developer.yr.no/doc/TermsOfService/
+
+costModel:
+  type: Free / Open Government Service
+  directCost: $0.00
+  currency: USD
+  billingModel: None — no billing, no metering, no invoicing
+  fundingSource: >-
+    Norwegian government via the Norwegian Meteorological Institute (MET Norway)
+    and the Norwegian Broadcasting Corporation (NRK). Costs are borne by the
+    Norwegian public sector, not by API consumers.
+
+usageDimensions:
+  - dimension: API Calls
+    unit: requests
+    unitCost: $0.00
+    notes: Unlimited free calls subject to 20 req/s per-application cap.
+
+  - dimension: Data Transfer (inbound to consumer)
+    unit: GB
+    unitCost: $0.00 (from MET Norway side)
+    notes: >-
+      Consumer may incur egress costs from their own cloud provider when
+      data is fetched and relayed to end users.
+
+  - dimension: Cached vs. Uncached Requests
+    unit: requests
+    unitCost: $0.00
+    notes: >-
+      Proper caching (Expires / If-Modified-Since headers) reduces unnecessary
+      traffic and lowers consumer backend compute costs. Non-compliance risks
+      throttling which degrades service quality.
+
+indirectCosts:
+  - category: Backend Proxy Infrastructure
+    description: >-
+      MET Norway recommends that browser/mobile clients route through a
+      backend proxy. Organizations must provision and operate this proxy
+      (compute, networking, monitoring).
+    estimationGuidance: >-
+      Small-scale integrations: minimal cost (serverless function or shared
+      microservice). High-traffic consumer products: budget for dedicated
+      caching layer (e.g., CDN or Redis) to stay within 20 req/s limit.
+
+  - category: Caching Layer
+    description: >-
+      Responses must be cached per Terms of Service. A caching layer (in-memory
+      cache, CDN, or database) is required for production deployments.
+    estimationGuidance: >-
+      Redis or Memcached instance for small deployments: ~$15–$50/month.
+      CDN caching for global consumer products: variable by traffic volume.
+
+  - category: Compliance and Monitoring
+    description: >-
+      Engineering time to implement and maintain User-Agent identification,
+      rate-limit monitoring, coordinate truncation, and HTTPS enforcement.
+    estimationGuidance: Initial implementation: 4–16 hours developer time.
+
+  - category: Attribution
+    description: >-
+      Data is licensed CC BY 4.0. Organizations must display proper attribution
+      to MET Norway / Yr in their products. Design and legal review costs apply.
+    estimationGuidance: Minimal one-time cost; typically handled during UI/UX implementation.
+
+budgetingRecommendations:
+  - Use HTTP caching headers (Expires, If-Modified-Since) to minimize redundant
+    API calls and reduce backend compute costs.
+  - Implement a server-side proxy or caching layer before going to production
+    to isolate clients from potential IP-level throttling.
+  - Monitor aggregate request rates per application to stay below 20 req/s;
+    set alerts at 15 req/s (75% threshold) to allow headroom.
+  - For high-volume products, consider contacting MET Norway for a special
+    agreement before scaling past the default rate limit.
+  - Ensure CC BY 4.0 attribution is in place to avoid licensing risk.
+
+risks:
+  - risk: Throttling (HTTP 429)
+    likelihood: Medium for high-traffic integrations
+    impact: Degraded user experience; forecast data unavailable during throttling window
+    mitigation: Implement caching, exponential back-off, and rate-limit monitoring.
+
+  - risk: Permanent Ban
+    likelihood: Low for compliant integrations
+    impact: Complete loss of access to the free API
+    mitigation: Follow all Terms of Service; do not fake User-Agent or circumvent rate limits.
+
+  - risk: Service Availability
+    likelihood: Low (government-funded, high-reliability infrastructure)
+    impact: Temporary forecast data unavailability
+    mitigation: Cache last-known-good responses; implement graceful degradation in consumer apps.

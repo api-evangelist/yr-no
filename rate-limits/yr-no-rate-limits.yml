@@ -1,0 +1,69 @@
+name: Yr / MET Weather API Rate Limits
+description: >-
+  Rate limits for the MET Norway Weather API as defined in the official Terms
+  of Service at https://developer.yr.no/doc/TermsOfService/. The API is free
+  and open but requires respectful usage, proper caching, and compliance with
+  the throughput and behavioral constraints below.
+version: '0.1'
+specificationVersion: '0.1'
+url: https://developer.yr.no/doc/TermsOfService/
+rateLimits:
+  - name: Maximum Request Rate
+    description: >-
+      No application may exceed 20 requests per second in aggregate across all
+      clients/installations. Applications requiring higher throughput must
+      contact MET Norway for a special agreement.
+    value: 20
+    unit: requests/second
+    scope: per application (total across all clients)
+    enforcement: HTTP 429 Too Many Requests; escalation to blocking if contact cannot be established
+
+  - name: MetAlerts Polling Minimum Interval
+    description: >-
+      Mobile apps and automated clients must not poll the MetAlerts endpoint
+      more than once every 10 minutes.
+    value: 1
+    unit: requests/10 minutes
+    scope: per client for MetAlerts endpoint
+    enforcement: Throttling and potential permanent ban
+
+  - name: Coordinate Precision Limit
+    description: >-
+      Latitude and longitude coordinates must be truncated to a maximum of
+      4 decimal places. Requests with 5 or more decimal places receive
+      HTTP 403 Forbidden.
+    value: 4
+    unit: decimal places
+    scope: lat/lon query parameters
+    enforcement: HTTP 403 Forbidden
+
+  - name: Cache Compliance
+    description: >-
+      Clients must respect the Expires response header and use
+      If-Modified-Since conditional requests on subsequent calls.
+      Unnecessary repeated requests for unchanged data may lead to throttling.
+    scope: all endpoints
+    enforcement: Throttling; blocking for persistent non-compliance
+
+  - name: HTTPS Requirement
+    description: >-
+      All requests must use HTTPS. HTTP requests are automatically redirected,
+      but sustained unencrypted traffic will be blocked.
+    scope: all endpoints
+    enforcement: Redirect then block
+
+  - name: User-Agent Identification
+    description: >-
+      All requests must include a User-Agent header identifying the application
+      by name/domain and providing a contact email or URL. Requests with
+      missing, prohibited (e.g., "okhttp", "Dalvik", "Java"), or generic
+      identifiers receive HTTP 403 Forbidden.
+    scope: all endpoints
+    enforcement: HTTP 403 Forbidden; permanent ban for impersonation
+
+behavioralGuidelines:
+  - Distribute requests evenly over time; avoid clustering on the hour or other fixed intervals.
+  - Mobile apps must not continuously update location forecasts while the app is in the background.
+  - Cache all API responses and honor HTTP cache-control and Expires headers.
+  - All clients (browser/mobile) should route through a backend proxy rather than calling the API directly from the client to simplify compliance and reduce duplicate traffic.
+  - Gzip compression support is required; all clients must accept gzip-encoded responses.
