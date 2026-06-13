@@ -1,0 +1,225 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "unit": "http://qudt.org/vocab/unit/",
+    "wmo": "https://codes.wmo.int/",
+    "met": "https://api.met.no/weatherapi/",
+    "yr": "https://www.yr.no/en/",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:version",
+    "license": "schema:license",
+    "dateModified": "schema:dateModified",
+    "provider": "schema:provider",
+
+    "WeatherForecast": "schema:WeatherForecast",
+    "WeatherAlert": "schema:AlertAction",
+    "Place": "schema:Place",
+    "GeoCoordinates": "schema:GeoCoordinates",
+
+    "latitude": "schema:latitude",
+    "longitude": "schema:longitude",
+    "elevation": "schema:elevation",
+
+    "validFrom": {
+      "@id": "schema:validFrom",
+      "@type": "xsd:dateTime"
+    },
+    "validThrough": {
+      "@id": "schema:validThrough",
+      "@type": "xsd:dateTime"
+    },
+    "datePublished": {
+      "@id": "schema:datePublished",
+      "@type": "xsd:dateTime"
+    },
+
+    "temperature": {
+      "@id": "schema:temperature",
+      "@type": "qudt:QuantityValue"
+    },
+    "value": "qudt:numericValue",
+    "unit_code": "qudt:unit",
+
+    "LocationForecast": {
+      "@id": "met:locationforecast/2.0/",
+      "@type": "schema:DataFeed"
+    },
+    "Nowcast": {
+      "@id": "met:nowcast/2.0/",
+      "@type": "schema:DataFeed"
+    },
+    "MetAlerts": {
+      "@id": "met:metalerts/2.0/",
+      "@type": "schema:DataFeed"
+    },
+    "Sunrise": {
+      "@id": "met:sunrise/3.0/",
+      "@type": "schema:DataFeed"
+    },
+    "OceanForecast": {
+      "@id": "met:oceanforecast/2.0/",
+      "@type": "schema:DataFeed"
+    },
+    "RadarData": {
+      "@id": "met:radar/2.0/",
+      "@type": "schema:DataFeed"
+    },
+
+    "air_temperature": {
+      "@id": "wmo:bufr4/b/12/_001",
+      "schema:unitText": "celsius"
+    },
+    "wind_speed": {
+      "@id": "wmo:bufr4/b/11/_002",
+      "schema:unitText": "m/s"
+    },
+    "wind_from_direction": {
+      "@id": "wmo:bufr4/b/11/_001",
+      "schema:unitText": "degrees"
+    },
+    "precipitation_amount": {
+      "@id": "wmo:bufr4/b/13/_011",
+      "schema:unitText": "mm"
+    },
+    "precipitation_rate": {
+      "@id": "wmo:bufr4/b/13/_013",
+      "schema:unitText": "mm/h"
+    },
+    "cloud_area_fraction": {
+      "@id": "wmo:bufr4/b/20/_010",
+      "schema:unitText": "%"
+    },
+    "relative_humidity": {
+      "@id": "wmo:bufr4/b/13/_003",
+      "schema:unitText": "%"
+    },
+    "ultraviolet_index_clear_sky": {
+      "@id": "schema:uvIndex",
+      "schema:unitText": "index"
+    },
+    "dew_point_temperature": {
+      "@id": "wmo:bufr4/b/12/_006",
+      "schema:unitText": "celsius"
+    },
+    "surface_air_pressure": {
+      "@id": "wmo:bufr4/b/10/_004",
+      "schema:unitText": "hPa"
+    },
+    "air_pressure_at_sea_level": {
+      "@id": "wmo:bufr4/b/10/_051",
+      "schema:unitText": "hPa"
+    },
+
+    "sea_surface_wave_height": {
+      "@id": "wmo:bufr4/b/22/_070",
+      "schema:unitText": "m"
+    },
+    "sea_surface_wave_from_direction": {
+      "@id": "wmo:bufr4/b/22/_021",
+      "schema:unitText": "degrees"
+    },
+    "sea_water_temperature": {
+      "@id": "wmo:bufr4/b/22/_049",
+      "schema:unitText": "celsius"
+    },
+    "sea_water_speed": {
+      "@id": "wmo:bufr4/b/22/_031",
+      "schema:unitText": "m/s"
+    },
+    "sea_water_to_direction": {
+      "@id": "wmo:bufr4/b/22/_032",
+      "schema:unitText": "degrees"
+    },
+    "sea_water_salinity": {
+      "@id": "wmo:bufr4/b/22/_064",
+      "schema:unitText": "psu"
+    },
+
+    "alertSeverity": {
+      "@id": "schema:Severity"
+    },
+    "alertEvent": "schema:eventName",
+    "areaOfConcern": "schema:areaServed",
+    "capIdentifier": "schema:identifier",
+
+    "sunrise": "schema:sunrise",
+    "sunset": "schema:sunset",
+    "moonrise": {
+      "@id": "yr:moonrise"
+    },
+    "moonset": {
+      "@id": "yr:moonset"
+    },
+    "solarnoon": {
+      "@id": "yr:solarnoon"
+    },
+    "azimuth": {
+      "@id": "yr:azimuth",
+      "schema:unitText": "degrees"
+    },
+
+    "pm25": {
+      "@id": "yr:pm25",
+      "schema:unitText": "µg/m³"
+    },
+    "pm10": {
+      "@id": "yr:pm10",
+      "schema:unitText": "µg/m³"
+    },
+    "no2": {
+      "@id": "yr:no2",
+      "schema:unitText": "µg/m³"
+    },
+    "ozone": {
+      "@id": "yr:ozone",
+      "schema:unitText": "µg/m³"
+    },
+
+    "symbol_code": {
+      "@id": "yr:symbolCode"
+    },
+    "symbol_confidence": {
+      "@id": "yr:symbolConfidence"
+    },
+    "radar_coverage": {
+      "@id": "yr:radarCoverage"
+    },
+
+    "timeseries": {
+      "@id": "schema:DataFeedItem",
+      "@container": "@list"
+    },
+    "instant": {
+      "@id": "yr:instantForecast"
+    },
+    "next_1_hours": {
+      "@id": "yr:next1Hours"
+    },
+    "next_6_hours": {
+      "@id": "yr:next6Hours"
+    },
+    "next_12_hours": {
+      "@id": "yr:next12Hours"
+    },
+    "updated_at": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "units": {
+      "@id": "yr:units"
+    },
+    "details": {
+      "@id": "yr:details"
+    },
+    "summary": {
+      "@id": "yr:summary"
+    }
+  }
+}

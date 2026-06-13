@@ -1,0 +1,356 @@
+vocabulary:
+  name: Yr / MET Norway API Vocabulary
+  description: >-
+    Domain vocabulary for the Yr weather service and MET Norway Weather API.
+    Covers meteorological parameters, alert terminology, ocean forecast data,
+    celestial event data, and radar imagery concepts used across all MET Norway
+    API products.
+  version: '1.0'
+  created: '2026-06-13'
+  provider: yr-no
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+
+terms:
+
+  # Core forecast concepts
+  - term: locationforecast
+    label: Location Forecast
+    definition: >-
+      A time-series weather forecast for a specific geographic coordinate,
+      covering up to nine days ahead. Includes temperature, wind, precipitation,
+      and cloud cover at hourly and sub-hourly resolution.
+    related:
+      - compact
+      - complete
+      - timeseries
+
+  - term: nowcast
+    label: Nowcast
+    definition: >-
+      An immediate short-range weather forecast based on radar data, covering
+      the next two hours at high temporal resolution. Available only within
+      radar coverage of the Nordic area and updated every five minutes.
+
+  - term: timeseries
+    label: Forecast Timeseries
+    definition: >-
+      An ordered array of forecast time steps, each containing weather
+      parameter values for a specific point in time (instant) and optionally
+      aggregate values for the following 1, 6, or 12 hours.
+
+  - term: compact
+    label: Compact Forecast
+    definition: >-
+      A streamlined forecast product containing only the most frequently used
+      weather parameters, resulting in smaller response payloads compared to
+      the complete product.
+
+  - term: complete
+    label: Complete Forecast
+    definition: >-
+      A full forecast product containing all available weather parameters
+      including probabilistic percentile values (10th and 90th percentile)
+      for temperature and wind speed.
+
+  # Weather parameters
+  - term: air_temperature
+    label: Air Temperature
+    unit: celsius
+    definition: The temperature of the air at the requested location and altitude.
+
+  - term: wind_speed
+    label: Wind Speed
+    unit: m/s
+    definition: >-
+      The speed of wind at the requested location, measured in meters per
+      second at 10 meters above ground level.
+
+  - term: wind_from_direction
+    label: Wind Direction
+    unit: degrees
+    definition: >-
+      The compass direction from which wind is blowing, in degrees clockwise
+      from north (0=North, 90=East, 180=South, 270=West).
+
+  - term: precipitation_amount
+    label: Precipitation Amount
+    unit: mm
+    definition: >-
+      The accumulated liquid-equivalent precipitation for a given time period,
+      in millimeters. Available for 1-hour, 6-hour, and 12-hour periods.
+
+  - term: precipitation_rate
+    label: Precipitation Rate
+    unit: mm/h
+    definition: >-
+      The instantaneous rate of precipitation in millimeters per hour,
+      primarily used in nowcast products based on radar data.
+
+  - term: cloud_area_fraction
+    label: Cloud Area Fraction
+    unit: '%'
+    definition: >-
+      The fraction of the sky covered by clouds, expressed as a percentage
+      from 0 (clear) to 100 (fully overcast).
+
+  - term: relative_humidity
+    label: Relative Humidity
+    unit: '%'
+    definition: >-
+      The ratio of the actual water vapor content of the air to the saturation
+      water vapor content at the same temperature, expressed as a percentage.
+
+  - term: ultraviolet_index_clear_sky
+    label: UV Index (Clear Sky)
+    unit: index
+    definition: >-
+      The ultraviolet radiation index assuming clear sky conditions for the
+      requested location. Does not account for cloud cover attenuation.
+
+  - term: air_temperature_percentile_10
+    label: Air Temperature 10th Percentile
+    unit: celsius
+    definition: >-
+      The 10th percentile of the ensemble forecast distribution for air
+      temperature, indicating the lower bound of the likely range.
+
+  - term: air_temperature_percentile_90
+    label: Air Temperature 90th Percentile
+    unit: celsius
+    definition: >-
+      The 90th percentile of the ensemble forecast distribution for air
+      temperature, indicating the upper bound of the likely range.
+
+  - term: wind_speed_percentile_10
+    label: Wind Speed 10th Percentile
+    unit: m/s
+    definition: >-
+      The 10th percentile of the ensemble forecast distribution for wind speed.
+
+  - term: wind_speed_percentile_90
+    label: Wind Speed 90th Percentile
+    unit: m/s
+    definition: >-
+      The 90th percentile of the ensemble forecast distribution for wind speed.
+
+  # Weather symbols
+  - term: symbol_code
+    label: Weather Symbol Code
+    definition: >-
+      A string identifier that summarizes the overall weather condition for a
+      time period. Composed of a base condition (e.g., clearsky, rain, snow)
+      and a time-of-day qualifier (day, night, polartwilight). Used to select
+      weather icon images.
+
+  - term: symbol_confidence
+    label: Symbol Confidence
+    definition: >-
+      An estimate of certainty for a weather symbol code. Values are
+      'certain', 'somewhat certain', or 'uncertain', reflecting the spread
+      in the ensemble forecast.
+
+  - term: radar_coverage
+    label: Radar Coverage
+    definition: >-
+      Describes whether radar data is available for the requested location.
+      Values are 'ok', 'temporarily unavailable', or 'no coverage'. Affects
+      which parameters are available in nowcast products.
+
+  # Ocean forecast
+  - term: sea_surface_wave_height
+    label: Sea Surface Wave Height
+    unit: m
+    definition: >-
+      The significant wave height (SWH) at the sea surface, defined as the
+      mean height of the highest one-third of waves in meters.
+
+  - term: sea_surface_wave_from_direction
+    label: Wave Direction (From)
+    unit: degrees
+    definition: >-
+      The direction from which sea surface waves are propagating, in degrees
+      clockwise from north.
+
+  - term: sea_water_temperature
+    label: Sea Water Temperature
+    unit: celsius
+    definition: The temperature of sea water at the surface.
+
+  - term: sea_water_speed
+    label: Sea Current Speed
+    unit: m/s
+    definition: The speed of the sea water current in meters per second.
+
+  - term: sea_water_to_direction
+    label: Sea Current Direction (To)
+    unit: degrees
+    definition: >-
+      The direction toward which the sea water current is flowing, in degrees
+      clockwise from north.
+
+  - term: sea_water_salinity
+    label: Sea Water Salinity
+    unit: psu
+    definition: >-
+      The salinity of sea water expressed in Practical Salinity Units (PSU),
+      which is approximately equivalent to grams of salt per kilogram of water.
+
+  # Alert concepts
+  - term: metalerts
+    label: MetAlerts
+    definition: >-
+      The Norwegian Meteorological Institute's weather warning system, issuing
+      alerts formatted according to the CAP (Common Alerting Protocol) standard
+      for Norway and surrounding marine areas.
+
+  - term: cap
+    label: Common Alerting Protocol (CAP)
+    definition: >-
+      An international standard format for emergency alerts and public
+      warnings (OASIS CAP). MetAlerts uses CAP XML as the primary format
+      for distributing weather warnings.
+
+  - term: awareness_level
+    label: Awareness Level
+    definition: >-
+      Color-coded severity indicator for weather alerts. Red (Extreme, >50%
+      probability), Orange (Severe or Extreme <50%), Yellow (Moderate
+      severity), and Green (no warning).
+
+  - term: geographic_domain
+    label: Geographic Domain
+    definition: >-
+      The type of geographic area covered by a weather alert. Either 'land'
+      for terrestrial areas or 'marine' for sea areas.
+
+  - term: incident_name
+    label: Incident Name
+    definition: >-
+      A named identifier assigned to red-level extreme weather events, used
+      to group related alerts for the same major weather event.
+
+  # Celestial events
+  - term: sunrise
+    label: Sunrise
+    definition: >-
+      The moment when the upper limb of the sun first appears above the horizon,
+      as seen from a specific geographic location. Includes azimuth bearing.
+
+  - term: sunset
+    label: Sunset
+    definition: >-
+      The moment when the upper limb of the sun disappears below the horizon,
+      as seen from a specific geographic location. Includes azimuth bearing.
+
+  - term: solarnoon
+    label: Solar Noon
+    definition: >-
+      The moment when the sun reaches its highest elevation above the horizon
+      for the day, also called solar transit.
+
+  - term: civil_twilight
+    label: Civil Twilight
+    definition: >-
+      The period before sunrise and after sunset when the sun is between 0
+      and 6 degrees below the horizon. Sufficient light for most outdoor
+      activities without artificial lighting.
+
+  - term: nautical_twilight
+    label: Nautical Twilight
+    definition: >-
+      The period when the sun is between 6 and 12 degrees below the horizon.
+      The horizon is still visible at sea for celestial navigation.
+
+  - term: astronomical_twilight
+    label: Astronomical Twilight
+    definition: >-
+      The period when the sun is between 12 and 18 degrees below the horizon.
+      The sky is dark enough for most astronomical observations.
+
+  - term: polar_twilight
+    label: Polar Twilight
+    definition: >-
+      A weather symbol variant used during the period of polar twilight in
+      arctic regions where the sun does not rise above or below the horizon
+      in the traditional sense.
+
+  # Radar
+  - term: radar
+    label: Weather Radar
+    definition: >-
+      Ground-based meteorological radar systems that detect precipitation by
+      measuring the reflection of radio waves from rain, snow, and other
+      hydrometeors. The MET Norway radar network covers the Nordic region.
+
+  - term: reflectivity
+    label: Radar Reflectivity
+    definition: >-
+      A measure of the intensity of the radar signal reflected back from
+      precipitation particles. Expressed in dBZ (decibels of reflectivity)
+      and related to precipitation rate.
+
+  # Frost API
+  - term: frost
+    label: Frost API
+    definition: >-
+      MET Norway's REST API for accessing historical meteorological observation
+      data from weather stations worldwide. Named after the poem by Robert Frost.
+
+  - term: observation
+    label: Meteorological Observation
+    definition: >-
+      A measured value of a meteorological parameter (temperature, precipitation,
+      wind, etc.) recorded at a specific weather station at a specific time.
+
+  # Air quality
+  - term: pm25
+    label: PM2.5
+    unit: µg/m³
+    definition: >-
+      Particulate matter with an aerodynamic diameter of 2.5 micrometers or
+      less. A key indicator of air quality and health risk.
+
+  - term: pm10
+    label: PM10
+    unit: µg/m³
+    definition: >-
+      Particulate matter with an aerodynamic diameter of 10 micrometers or
+      less. Includes coarse particles such as dust and pollen.
+
+  - term: no2
+    label: Nitrogen Dioxide (NO2)
+    unit: µg/m³
+    definition: >-
+      A gaseous air pollutant produced primarily by combustion processes in
+      vehicles and power plants. A key traffic-related air pollutant.
+
+  - term: ozone
+    label: Ozone (O3)
+    unit: µg/m³
+    definition: >-
+      A secondary air pollutant formed by photochemical reactions between
+      nitrogen oxides and volatile organic compounds in sunlight.
+
+  # Common API concepts
+  - term: user_agent
+    label: User-Agent
+    definition: >-
+      An HTTP header required by all MET Norway APIs to identify the client
+      application. Must include a unique application name and contact email.
+      Requests without a proper User-Agent are rejected with 403 Forbidden.
+
+  - term: geojson
+    label: GeoJSON
+    definition: >-
+      A geographic data format based on JSON used for encoding geographic
+      data structures. MET Norway APIs use GeoJSON Feature and FeatureCollection
+      types to return forecast and alert data with spatial context.
+
+  - term: met_json_forecast
+    label: MET JSON Forecast
+    definition: >-
+      The standardized GeoJSON-based response format used by MET Norway forecast
+      APIs (locationforecast, nowcast, oceanforecast). Contains a geometry point
+      and a forecast timeseries in the properties field.

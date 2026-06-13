@@ -1,0 +1,71 @@
+{
+  "sun": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [10.7522, 59.9139]
+    },
+    "when": {
+      "interval": [
+        "2024-06-21T00:00:00+02:00",
+        "2024-06-22T00:00:00+02:00"
+      ]
+    },
+    "properties": {
+      "body": "Sun",
+      "sunrise": {
+        "time": "2024-06-21T03:51:00+02:00",
+        "azimuth": 43.22
+      },
+      "sunset": {
+        "time": "2024-06-21T22:04:00+02:00",
+        "azimuth": 317.86
+      },
+      "solarnoon": {
+        "time": "2024-06-21T12:57:00+02:00",
+        "elevation": 54.11
+      },
+      "solarmidnight": {
+        "time": "2024-06-21T00:57:00+02:00",
+        "elevation": -6.18
+      }
+    }
+  },
+  "moon": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [10.7522, 59.9139]
+    },
+    "when": {
+      "interval": [
+        "2024-06-21T00:00:00+02:00",
+        "2024-06-22T00:00:00+02:00"
+      ]
+    },
+    "properties": {
+      "body": "Moon",
+      "moonrise": {
+        "time": "2024-06-21T14:32:00+02:00",
+        "azimuth": 62.45
+      },
+      "moonset": {
+        "time": "2024-06-22T01:18:00+02:00",
+        "azimuth": 298.30
+      },
+      "high_moon": {
+        "time": "2024-06-21T19:55:00+02:00",
+        "elevation": 40.25
+      },
+      "low_moon": {
+        "time": "2024-06-21T07:30:00+02:00",
+        "elevation": -20.1
+      },
+      "phase": {
+        "time": "2024-06-21T12:57:00+02:00",
+        "value": 0.65,
+        "illumination": 72.4
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [5.0, 58.0],
+            [8.0, 58.0],
+            [8.0, 60.0],
+            [5.0, 60.0],
+            [5.0, 58.0]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "2.49.0.1.578.0.20240115120000.001",
+        "title": "Orange alert: strong winds on Westland",
+        "description": "Strong gale force winds expected. Wind speeds of 20-25 m/s with gusts up to 35 m/s along the coast. Risk of damage to structures and hazardous driving conditions.",
+        "instruction": "Secure loose objects outdoors. Avoid unnecessary travel. Be cautious near coastal areas.",
+        "event": "wind",
+        "eventAwarenessName": "Strong winds",
+        "severity": "Severe",
+        "certainty": "Likely",
+        "urgency": "Expected",
+        "awareness_level": "3; orange; Severe",
+        "awareness_type": "1; Wind",
+        "onset": "2024-01-15T18:00:00+01:00",
+        "expires": "2024-01-16T06:00:00+01:00",
+        "published": "2024-01-15T12:00:00+01:00",
+        "updated": "2024-01-15T12:00:00+01:00",
+        "msgType": "Alert",
+        "status": "Actual",
+        "geographicDomain": "land",
+        "county": ["11", "12", "46"],
+        "cap": "https://api.met.no/weatherapi/metalerts/2.0/current?cap=2.49.0.1.578.0.20240115120000.001",
+        "resources": [
+          {
+            "description": "More information from the Norwegian Meteorological Institute",
+            "mimeType": "text/html",
+            "uri": "https://www.yr.no/en/warnings"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [4.0, 56.0],
+              [6.5, 56.0],
+              [6.5, 58.5],
+              [4.0, 58.5],
+              [4.0, 56.0]
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "2.49.0.1.578.0.20240115120001.001",
+        "title": "Yellow alert: strong winds at sea",
+        "description": "Gale force winds expected in open sea areas. Wind speeds of 15-20 m/s.",
+        "instruction": "Fishermen and small vessels should remain in harbour.",
+        "event": "wind",
+        "eventAwarenessName": "Gale warning",
+        "severity": "Moderate",
+        "certainty": "Likely",
+        "urgency": "Expected",
+        "awareness_level": "2; yellow; Moderate",
+        "awareness_type": "1; Wind",
+        "onset": "2024-01-15T20:00:00+01:00",
+        "expires": "2024-01-16T08:00:00+01:00",
+        "published": "2024-01-15T12:00:00+01:00",
+        "updated": "2024-01-15T12:00:00+01:00",
+        "msgType": "Alert",
+        "status": "Actual",
+        "geographicDomain": "marine",
+        "cap": "https://api.met.no/weatherapi/metalerts/2.0/current?cap=2.49.0.1.578.0.20240115120001.001"
+      }
+    }
+  ]
+}

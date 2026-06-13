@@ -1,0 +1,221 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.met.no/weatherapi/schemas/forecast",
+  "title": "MET Norway Forecast Response Schema",
+  "description": "Schema for the GeoJSON-based forecast timeseries returned by the MET Norway locationforecast and nowcast APIs.",
+  "type": "object",
+  "required": ["type", "geometry", "properties"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "Feature",
+      "description": "GeoJSON feature type identifier"
+    },
+    "geometry": {
+      "$ref": "#/definitions/PointGeometry"
+    },
+    "properties": {
+      "$ref": "#/definitions/Forecast"
+    }
+  },
+  "definitions": {
+    "PointGeometry": {
+      "title": "GeoJSON Point Geometry",
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Point"
+        },
+        "coordinates": {
+          "type": "array",
+          "description": "[longitude, latitude] or [longitude, latitude, altitude]",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          },
+          "examples": [
+            [9.58, 60.10],
+            [9.58, 60.10, 200]
+          ]
+        }
+      }
+    },
+    "Forecast": {
+      "title": "Forecast Timeseries Container",
+      "type": "object",
+      "required": ["meta", "timeseries"],
+      "properties": {
+        "meta": {
+          "type": "object",
+          "required": ["updated_at", "units"],
+          "properties": {
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 timestamp of the last forecast update",
+              "examples": ["2024-01-15T06:00:00Z"]
+            },
+            "units": {
+              "$ref": "#/definitions/ForecastUnits"
+            },
+            "radar_coverage": {
+              "$ref": "#/definitions/RadarCoverage"
+            }
+          }
+        },
+        "timeseries": {
+          "type": "array",
+          "description": "Ordered array of forecast time steps",
+          "items": {
+            "$ref": "#/definitions/ForecastTimeStep"
+          }
+        }
+      }
+    },
+    "ForecastTimeStep": {
+      "title": "Forecast Time Step",
+      "type": "object",
+      "required": ["time", "data"],
+      "properties": {
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp for which this forecast step is valid",
+          "examples": ["2024-01-15T07:00:00Z"]
+        },
+        "data": {
+          "type": "object",
+          "description": "Forecast values for this time step",
+          "properties": {
+            "instant": {
+              "type": "object",
+              "description": "Parameters valid at this exact instant",
+              "properties": {
+                "details": {
+                  "$ref": "#/definitions/ForecastData"
+                }
+              }
+            },
+            "next_1_hours": {
+              "$ref": "#/definitions/ForecastPeriod"
+            },
+            "next_6_hours": {
+              "$ref": "#/definitions/ForecastPeriod"
+            },
+            "next_12_hours": {
+              "$ref": "#/definitions/ForecastPeriod"
+            }
+          }
+        }
+      }
+    },
+    "ForecastPeriod": {
+      "type": "object",
+      "description": "Aggregate forecast values and summary for a time period",
+      "properties": {
+        "summary": {
+          "$ref": "#/definitions/ForecastSummary"
+        },
+        "details": {
+          "$ref": "#/definitions/ForecastData"
+        }
+      }
+    },
+    "ForecastSummary": {
+      "type": "object",
+      "required": ["symbol_code"],
+      "description": "Summary of weather conditions for a forecast period",
+      "properties": {
+        "symbol_code": {
+          "$ref": "#/definitions/WeatherSymbol"
+        },
+        "symbol_confidence": {
+          "$ref": "#/definitions/SymbolConfidence"
+        }
+      }
+    },
+    "ForecastData": {
+      "type": "object",
+      "description": "Map of weather parameter names to their numeric values",
+      "additionalProperties": {
+        "type": "number"
+      },
+      "examples": [
+        {
+          "air_temperature": 2.5,
+          "wind_speed": 4.2,
+          "wind_from_direction": 180.0,
+          "relative_humidity": 85.0,
+          "cloud_area_fraction": 60.0,
+          "precipitation_amount": 0.2,
+          "ultraviolet_index_clear_sky": 0.5
+        }
+      ]
+    },
+    "ForecastUnits": {
+      "type": "object",
+      "description": "Map of parameter names to their unit strings",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "examples": [
+        {
+          "air_temperature": "celsius",
+          "wind_speed": "m/s",
+          "wind_from_direction": "degrees",
+          "precipitation_amount": "mm",
+          "relative_humidity": "%",
+          "cloud_area_fraction": "%",
+          "ultraviolet_index_clear_sky": "1"
+        }
+      ]
+    },
+    "WeatherSymbol": {
+      "type": "string",
+      "description": "Identifier summarizing weather conditions for a time period",
+      "enum": [
+        "clearsky_day", "clearsky_night", "clearsky_polartwilight",
+        "fair_day", "fair_night", "fair_polartwilight",
+        "partlycloudy_day", "partlycloudy_night", "partlycloudy_polartwilight",
+        "cloudy", "fog",
+        "lightrain", "rain", "heavyrain",
+        "lightrainandthunder", "rainandthunder", "heavyrainandthunder",
+        "lightsnow", "snow", "heavysnow",
+        "lightsnowandthunder", "snowandthunder", "heavysnowandthunder",
+        "lightsleet", "sleet", "heavysleet",
+        "lightsleetandthunder", "sleetandthunder", "heavysleetandthunder",
+        "lightrainshowers_day", "lightrainshowers_night", "lightrainshowers_polartwilight",
+        "rainshowers_day", "rainshowers_night", "rainshowers_polartwilight",
+        "heavyrainshowers_day", "heavyrainshowers_night", "heavyrainshowers_polartwilight",
+        "lightrainshowersandthunder_day", "lightrainshowersandthunder_night", "lightrainshowersandthunder_polartwilight",
+        "rainshowersandthunder_day", "rainshowersandthunder_night", "rainshowersandthunder_polartwilight",
+        "heavyrainshowersandthunder_day", "heavyrainshowersandthunder_night", "heavyrainshowersandthunder_polartwilight",
+        "lightsnowshowers_day", "lightsnowshowers_night", "lightsnowshowers_polartwilight",
+        "snowshowers_day", "snowshowers_night", "snowshowers_polartwilight",
+        "heavysnowshowers_day", "heavysnowshowers_night", "heavysnowshowers_polartwilight",
+        "lightssnowshowersandthunder_day", "lightssnowshowersandthunder_night", "lightssnowshowersandthunder_polartwilight",
+        "snowshowersandthunder_day", "snowshowersandthunder_night", "snowshowersandthunder_polartwilight",
+        "heavysnowshowersandthunder_day", "heavysnowshowersandthunder_night", "heavysnowshowersandthunder_polartwilight",
+        "lightsleetshowers_day", "lightsleetshowers_night", "lightsleetshowers_polartwilight",
+        "sleetshowers_day", "sleetshowers_night", "sleetshowers_polartwilight",
+        "heavysleetshowers_day", "heavysleetshowers_night", "heavysleetshowers_polartwilight",
+        "lightssleetshowersandthunder_day", "lightssleetshowersandthunder_night", "lightssleetshowersandthunder_polartwilight",
+        "sleetshowersandthunder_day", "sleetshowersandthunder_night", "sleetshowersandthunder_polartwilight",
+        "heavysleetshowersandthunder_day", "heavysleetshowersandthunder_night", "heavysleetshowersandthunder_polartwilight"
+      ]
+    },
+    "SymbolConfidence": {
+      "type": "string",
+      "description": "Certainty estimate for a weather symbol",
+      "enum": ["certain", "somewhat certain", "uncertain"]
+    },
+    "RadarCoverage": {
+      "type": "string",
+      "description": "Radar coverage status for the requested location",
+      "enum": ["ok", "temporarily unavailable", "no coverage"]
+    }
+  }
+}

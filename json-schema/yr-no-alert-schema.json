@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.met.no/weatherapi/metalerts/schemas/alert",
+  "title": "MET Norway MetAlerts GeoJSON Schema",
+  "description": "Schema for weather alert GeoJSON responses from the MET Norway MetAlerts API.",
+  "type": "object",
+  "required": ["type", "features"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "FeatureCollection"
+    },
+    "features": {
+      "type": "array",
+      "description": "Array of weather alert features",
+      "items": {
+        "$ref": "#/definitions/AlertFeature"
+      }
+    }
+  },
+  "definitions": {
+    "AlertFeature": {
+      "title": "Weather Alert Feature",
+      "type": "object",
+      "required": ["type", "geometry", "properties"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "Feature"
+        },
+        "geometry": {
+          "type": "object",
+          "description": "Geographic area affected by the alert (Polygon or MultiPolygon)",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["Polygon", "MultiPolygon"]
+            },
+            "coordinates": {
+              "type": "array"
+            }
+          }
+        },
+        "properties": {
+          "$ref": "#/definitions/AlertProperties"
+        }
+      }
+    },
+    "AlertProperties": {
+      "title": "Weather Alert Properties",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "CAP message identifier URI",
+          "examples": ["2.49.0.1.578.0.20240115120000.001"]
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable alert title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the weather event"
+        },
+        "instruction": {
+          "type": "string",
+          "description": "Recommended actions for the public"
+        },
+        "event": {
+          "type": "string",
+          "description": "Weather event type",
+          "enum": [
+            "blowingSnow", "forestFire", "gale", "ice", "icing",
+            "lightning", "polarLow", "rain", "rainFlood", "snow",
+            "stormSurge", "wind"
+          ]
+        },
+        "eventAwarenessName": {
+          "type": "string",
+          "description": "Human-readable event awareness name",
+          "examples": ["Extreme wind", "Heavy rain", "Heavy snow"]
+        },
+        "severity": {
+          "type": "string",
+          "description": "CAP severity level",
+          "enum": ["Extreme", "Severe", "Moderate", "Minor", "Unknown"]
+        },
+        "certainty": {
+          "type": "string",
+          "description": "CAP certainty level",
+          "enum": ["Observed", "Likely", "Possible", "Unlikely", "Unknown"]
+        },
+        "urgency": {
+          "type": "string",
+          "description": "CAP urgency level",
+          "enum": ["Immediate", "Expected", "Future", "Past", "Unknown"]
+        },
+        "awareness_level": {
+          "type": "string",
+          "description": "Color-coded awareness level used by MET Norway",
+          "enum": ["2; yellow; Moderate", "3; orange; Severe", "4; red; Extreme"]
+        },
+        "awareness_type": {
+          "type": "string",
+          "description": "Type of awareness alert"
+        },
+        "onset": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the alert period begins"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the alert expires"
+        },
+        "published": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the alert was published/issued"
+        },
+        "updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the alert was last updated"
+        },
+        "msgType": {
+          "type": "string",
+          "description": "CAP message type",
+          "enum": ["Alert", "Update", "Cancel", "Ack", "Error"]
+        },
+        "status": {
+          "type": "string",
+          "description": "CAP status",
+          "enum": ["Actual", "Exercise", "System", "Test", "Draft"]
+        },
+        "county": {
+          "type": "array",
+          "description": "Affected Norwegian county codes (land alerts only)",
+          "items": {
+            "type": "string",
+            "pattern": "^\\d{2}$"
+          }
+        },
+        "geographicDomain": {
+          "type": "string",
+          "description": "Geographic domain of the alert",
+          "enum": ["land", "marine"]
+        },
+        "incidentName": {
+          "type": "string",
+          "description": "Named incident identifier assigned to major (red) events"
+        },
+        "cap": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the full CAP XML message"
+        },
+        "resources": {
+          "type": "array",
+          "description": "Associated resources such as web links and images",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

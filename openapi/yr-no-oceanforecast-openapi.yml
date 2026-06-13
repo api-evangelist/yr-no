@@ -1,0 +1,315 @@
+openapi: 3.0.3
+info:
+  title: Oceanforecast API
+  description: >-
+    Ocean forecasts for points at sea in Northwestern Europe, providing wave
+    height, sea temperature, current direction and speed, and salinity for
+    specific coordinates. Returns GeoJSON timeseries data. Data is open under
+    CC BY 4.0 and requires only a User-Agent identification header.
+  version: '2.0'
+  contact:
+    name: Developer Support
+    url: https://developer.yr.no/
+    email: weatherapi-adm@met.no
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  termsOfService: https://developer.yr.no/doc/TermsOfService/
+externalDocs:
+  description: Official documentation
+  url: https://api.met.no/weatherapi/oceanforecast/2.0/documentation
+servers:
+  - url: https://api.met.no/weatherapi/oceanforecast/2.0
+    description: MET Norway Oceanforecast API
+tags:
+  - name: data
+    description: Ocean forecast data endpoints
+  - name: metadata
+    description: Service metadata endpoints
+paths:
+  /complete:
+    get:
+      tags:
+        - data
+      operationId: getOceanForecast
+      summary: Complete ocean forecast (JSON)
+      description: >-
+        Returns ocean forecast data for a specific point at sea in Northwestern
+        Europe as a GeoJSON timeseries. Parameters include sea surface wave
+        height, wave direction, sea water temperature, sea surface current
+        velocity, and salinity. Only available for marine locations.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+      responses:
+        '200':
+          description: Successful ocean forecast response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/METJSONForecast'
+              example:
+                type: Feature
+                geometry:
+                  type: Point
+                  coordinates: [5.0, 60.0]
+                properties:
+                  meta:
+                    updated_at: '2024-01-15T06:00:00Z'
+                    units:
+                      sea_surface_wave_height: m
+                      sea_water_temperature: celsius
+                      sea_water_speed: m/s
+                      sea_surface_wave_from_direction: degrees
+                  timeseries:
+                    - time: '2024-01-15T07:00:00Z'
+                      data:
+                        instant:
+                          details:
+                            sea_surface_wave_height: 2.4
+                            sea_water_temperature: 9.8
+                            sea_water_speed: 0.3
+                            sea_water_to_direction: 180.0
+                            sea_surface_wave_from_direction: 270.0
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request - missing or invalid parameters
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found - location may be on land
+        '422':
+          description: Unprocessable Entity - location not covered
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /mox:
+    get:
+      tags:
+        - data
+      operationId: getOceanForecastXml
+      summary: Ocean forecast in MOX XML format
+      description: >-
+        Returns ocean forecast data in legacy MOX XML format for a specific
+        marine point in Northwestern Europe.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+      responses:
+        '200':
+          description: XML ocean forecast response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+  /coverage:
+    get:
+      tags:
+        - data
+      operationId: getOceanCoverage
+      summary: Ocean forecast coverage area
+      description: >-
+        Returns the geographic coverage area of the ocean forecast as a ZIP
+        file containing boundary data.
+      responses:
+        '200':
+          description: Coverage area ZIP file
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /changelog:
+    get:
+      tags:
+        - metadata
+      operationId: getChangelog
+      summary: RSS feed of product changes
+      description: Returns an RSS feed listing changes and updates to this product.
+      responses:
+        '200':
+          description: RSS changelog feed
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+  /healthz:
+    get:
+      tags:
+        - metadata
+      operationId: healthCheck
+      summary: Health check
+      description: Check the health status of the Oceanforecast service.
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            text/plain:
+              schema:
+                type: string
+  /locations:
+    get:
+      tags:
+        - metadata
+      operationId: listLocations
+      summary: List pre-defined marine locations
+      description: Returns a GeoJSON FeatureCollection of pre-defined marine locations.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of locations
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  parameters:
+    lat:
+      name: lat
+      in: query
+      required: true
+      description: Latitude in decimal degrees (must be a marine location)
+      schema:
+        type: number
+        format: float
+        minimum: -90
+        maximum: 90
+        example: 60.0
+    lon:
+      name: lon
+      in: query
+      required: true
+      description: Longitude in decimal degrees (must be a marine location)
+      schema:
+        type: number
+        format: float
+        minimum: -180
+        maximum: 180
+        example: 5.0
+  schemas:
+    METJSONForecast:
+      title: GeoJSON Ocean Forecast Timeseries
+      type: object
+      required:
+        - type
+        - geometry
+        - properties
+      properties:
+        type:
+          type: string
+          enum:
+            - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/Forecast'
+    PointGeometry:
+      title: GeoJSON Point Geometry
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - Point
+        coordinates:
+          type: array
+          minItems: 2
+          items:
+            type: number
+          description: '[longitude, latitude]. All values in decimal degrees.'
+          example: [5.0, 60.0]
+    Forecast:
+      title: Ocean Forecast Timeseries
+      type: object
+      required:
+        - meta
+        - timeseries
+      properties:
+        meta:
+          type: object
+          required:
+            - updated_at
+            - units
+          properties:
+            updated_at:
+              type: string
+              format: date-time
+              description: Timestamp when this forecast was last updated
+            units:
+              $ref: '#/components/schemas/ForecastUnits'
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeStep'
+    ForecastTimeStep:
+      title: Ocean Forecast Time Step
+      type: object
+      required:
+        - time
+        - data
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp for this forecast step
+        data:
+          type: object
+          properties:
+            instant:
+              type: object
+              properties:
+                details:
+                  $ref: '#/components/schemas/OceanForecastData'
+            next_1_hours:
+              type: object
+              properties:
+                details:
+                  $ref: '#/components/schemas/OceanForecastData'
+            next_6_hours:
+              type: object
+              properties:
+                details:
+                  $ref: '#/components/schemas/OceanForecastData'
+    OceanForecastData:
+      type: object
+      description: >-
+        Ocean forecast parameters. Common parameters include
+        sea_surface_wave_height (m), sea_surface_wave_from_direction (degrees),
+        sea_surface_swell_wave_height (m), sea_water_temperature (celsius),
+        sea_water_speed (m/s), sea_water_to_direction (degrees), and
+        sea_water_salinity (psu).
+      additionalProperties:
+        type: number
+    ForecastUnits:
+      type: object
+      description: Map of parameter names to their unit strings
+      additionalProperties:
+        type: string

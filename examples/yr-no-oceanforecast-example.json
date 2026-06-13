@@ -1,0 +1,61 @@
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [5.0, 60.0]
+  },
+  "properties": {
+    "meta": {
+      "updated_at": "2024-01-15T06:00:00Z",
+      "units": {
+        "sea_surface_wave_height": "m",
+        "sea_surface_wave_from_direction": "degrees",
+        "sea_surface_swell_wave_height": "m",
+        "sea_surface_swell_wave_from_direction": "degrees",
+        "sea_surface_wave_period": "s",
+        "sea_water_temperature": "celsius",
+        "sea_water_speed": "m/s",
+        "sea_water_to_direction": "degrees",
+        "sea_water_salinity": "psu"
+      }
+    },
+    "timeseries": [
+      {
+        "time": "2024-01-15T07:00:00Z",
+        "data": {
+          "instant": {
+            "details": {
+              "sea_surface_wave_height": 2.4,
+              "sea_surface_wave_from_direction": 270.0,
+              "sea_surface_swell_wave_height": 1.8,
+              "sea_surface_swell_wave_from_direction": 265.0,
+              "sea_surface_wave_period": 8.5,
+              "sea_water_temperature": 9.8,
+              "sea_water_speed": 0.32,
+              "sea_water_to_direction": 180.0,
+              "sea_water_salinity": 34.5
+            }
+          }
+        }
+      },
+      {
+        "time": "2024-01-15T13:00:00Z",
+        "data": {
+          "instant": {
+            "details": {
+              "sea_surface_wave_height": 3.1,
+              "sea_surface_wave_from_direction": 285.0,
+              "sea_surface_swell_wave_height": 2.2,
+              "sea_surface_swell_wave_from_direction": 275.0,
+              "sea_surface_wave_period": 9.0,
+              "sea_water_temperature": 9.7,
+              "sea_water_speed": 0.28,
+              "sea_water_to_direction": 175.0,
+              "sea_water_salinity": 34.4
+            }
+          }
+        }
+      }
+    ]
+  }
+}
