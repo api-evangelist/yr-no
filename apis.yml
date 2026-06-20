@@ -10,7 +10,7 @@ description: >-
   observation data. All data is open under CC BY 4.0 and requires only a
   User-Agent identification header — no API key or account is needed.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/yr-no/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -33,7 +33,7 @@ apis:
       returning temperature, wind, precipitation, cloud cover, humidity, and
       more. Available in compact JSON, complete JSON with probabilistic
       percentiles, and legacy XML formats.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
     baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
     tags:
@@ -51,7 +51,7 @@ apis:
       Weather alerts and warnings issued by the Norwegian Meteorological
       Institute for Norway and surrounding areas, returned as CAP (Common
       Alerting Protocol) XML or GeoJSON.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.met.no/weatherapi/metalerts/2.0/documentation
     baseURL: https://api.met.no/weatherapi/metalerts/2.0/
     tags:
@@ -68,7 +68,7 @@ apis:
     description: >-
       Immediate short-range weather forecasts for the Nordic area based on
       radar data, providing precipitation and wind for the next two hours.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.met.no/weatherapi/nowcast/2.0/documentation
     baseURL: https://api.met.no/weatherapi/nowcast/2.0/
     tags:
@@ -86,7 +86,7 @@ apis:
       Calculate sun and moon rise, set, and transit events as seen from any
       specific location on Earth, including civil, nautical, and astronomical
       twilight times.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.met.no/weatherapi/sunrise/3.0/documentation
     baseURL: https://api.met.no/weatherapi/sunrise/3.0/
     tags:
@@ -106,7 +106,7 @@ apis:
       REST API for historical meteorological observation data from weather
       stations worldwide, maintained by MET Norway. Access time-series
       temperature, precipitation, wind, and other observations.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://frost.met.no/howto.html
     baseURL: https://frost.met.no/
     tags:
@@ -122,7 +122,7 @@ apis:
     description: >-
       Ocean forecasts for points at sea in Northwestern Europe, providing
       wave height, sea temperature, current direction and speed, and salinity.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.met.no/weatherapi/oceanforecast/2.0/documentation
     baseURL: https://api.met.no/weatherapi/oceanforecast/2.0/
     tags:
@@ -140,7 +140,7 @@ apis:
     description: >-
       Radar composite images for various areas in the Nordic region, providing
       near real-time precipitation radar data in multiple formats and scan types.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.met.no/weatherapi/radar/2.0/documentation
     baseURL: https://api.met.no/weatherapi/radar/2.0/
     tags:
@@ -157,7 +157,7 @@ apis:
     description: >-
       Forecasts of air quality for locations in Norway, including concentrations
       of PM2.5, PM10, NO2, and ozone, with daily and hourly granularity.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api.met.no/weatherapi/airqualityforecast/0.1/documentation
     baseURL: https://api.met.no/weatherapi/airqualityforecast/0.1/
     tags:
