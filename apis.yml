@@ -169,6 +169,10 @@ apis:
         url: https://api.met.no/weatherapi/airqualityforecast/0.1/documentation
 
 common:
+  - type: VulnerabilityDisclosure
+    url: security/yr-no-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/yr-no-domain-security.yml
   - type: Website
     url: https://www.yr.no/en
   - type: Documentation
