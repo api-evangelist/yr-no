@@ -2,13 +2,11 @@
   "repo": "yr-no",
   "feeds": [
     {
-      "source": "https://developer.yr.no/",
-      "feed_url": "",
-      "saved": 0,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/met-norway/",
+      "error": "HTTPError"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-27T13:22:37Z",
-  "agent_pulled": "2026-06-27"
+  "fetched": "2026-07-11T11:50:51Z",
+  "agent_pulled": "2026-07-04"
 }
