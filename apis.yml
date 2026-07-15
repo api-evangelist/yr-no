@@ -169,6 +169,8 @@ apis:
         url: https://api.met.no/weatherapi/airqualityforecast/0.1/documentation
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/yr-no-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/yr-no-vulnerability-disclosure.yml
   - type: DomainSecurity
