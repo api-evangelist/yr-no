@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: Locationforecast alerts metadata API
+  description: Weather forecasts for any location on Earth up to nine days ahead, returning temperature, wind, precipitation, cloud cover, humidity, and more. Available in compact JSON, complete JSON with probabilistic percentiles, and legacy XML formats. Data is open under CC BY 4.0 and requires only a User-Agent header.
+  version: '2.0'
+  contact:
+    name: Developer Support
+    url: https://developer.yr.no/
+    email: weatherapi-adm@met.no
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  termsOfService: https://developer.yr.no/doc/TermsOfService/
+servers:
+- url: https://api.met.no/weatherapi/locationforecast/2.0
+  description: MET Norway Locationforecast API
+tags:
+- name: metadata
+  description: Service metadata endpoints
+paths:
+  /status:
+    get:
+      tags:
+      - metadata
+      operationId: getForecastStatus
+      summary: Operational status of the forecast model
+      description: Returns the current operational status of the Locationforecast model.
+      responses:
+        '200':
+          description: Status information
+          content:
+            application/json:
+              schema:
+                type: object
+            application/xml:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+  /changelog:
+    get:
+      tags:
+      - metadata
+      operationId: getChangelog
+      summary: RSS feed of product changes
+      description: Returns an RSS feed listing changes and updates to this product.
+      responses:
+        '200':
+          description: RSS changelog feed
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+  /healthz:
+    get:
+      tags:
+      - metadata
+      operationId: healthCheck
+      summary: Health check
+      description: Check the health status of the Locationforecast service.
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            text/plain:
+              schema:
+                type: string
+  /schema:
+    get:
+      tags:
+      - metadata
+      operationId: getSchema
+      summary: OpenAPI schema
+      description: Returns the OpenAPI/JSON Schema for the forecast data structures.
+      responses:
+        '200':
+          description: Schema document
+          content:
+            application/json:
+              schema:
+                type: object
+  /locations:
+    get:
+      tags:
+      - metadata
+      operationId: listLocations
+      summary: List available locations
+      description: Returns a GeoJSON FeatureCollection of pre-defined locations.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of locations
+          content:
+            application/json:
+              schema:
+                type: object
+  /values:
+    get:
+      tags:
+      - metadata
+      operationId: getAlertValues
+      summary: List allowed parameter values
+      description: Returns allowed values for query parameters such as event types.
+      responses:
+        '200':
+          description: Allowed parameter values
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+externalDocs:
+  description: Official documentation
+  url: https://api.met.no/weatherapi/locationforecast/2.0/documentation

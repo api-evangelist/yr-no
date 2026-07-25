@@ -1,0 +1,784 @@
+openapi: 3.0.3
+info:
+  title: Locationforecast alerts data API
+  description: Weather forecasts for any location on Earth up to nine days ahead, returning temperature, wind, precipitation, cloud cover, humidity, and more. Available in compact JSON, complete JSON with probabilistic percentiles, and legacy XML formats. Data is open under CC BY 4.0 and requires only a User-Agent header.
+  version: '2.0'
+  contact:
+    name: Developer Support
+    url: https://developer.yr.no/
+    email: weatherapi-adm@met.no
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  termsOfService: https://developer.yr.no/doc/TermsOfService/
+servers:
+- url: https://api.met.no/weatherapi/locationforecast/2.0
+  description: MET Norway Locationforecast API
+tags:
+- name: data
+  description: Forecast data endpoints
+paths:
+  /compact:
+    get:
+      tags:
+      - data
+      operationId: getCompactForecast
+      summary: Compact weather forecast
+      description: Streamlined weather forecast for a given location containing the most frequently used parameters. Returns a GeoJSON Feature with a timeseries of forecast data steps.
+      parameters:
+      - $ref: '#/components/parameters/lat'
+      - $ref: '#/components/parameters/lon'
+      - $ref: '#/components/parameters/altitude'
+      responses:
+        '200':
+          description: Successful forecast response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/METJSONForecast'
+              example:
+                type: Feature
+                geometry:
+                  type: Point
+                  coordinates:
+                  - 9.58
+                  - 60.1
+                  - 200
+                properties:
+                  meta:
+                    updated_at: '2024-01-15T06:00:00Z'
+                    units:
+                      air_temperature: celsius
+                      precipitation_amount: mm
+                      wind_speed: m/s
+                  timeseries:
+                  - time: '2024-01-15T07:00:00Z'
+                    data:
+                      instant:
+                        details:
+                          air_temperature: 2.5
+                          wind_speed: 4.2
+                          wind_from_direction: 180.0
+                      next_1_hours:
+                        summary:
+                          symbol_code: partlycloudy_day
+                        details:
+                          precipitation_amount: 0.0
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request - missing or invalid parameters
+        '401':
+          description: Unauthorized - missing or invalid User-Agent
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /complete:
+    get:
+      tags:
+      - data
+      operationId: getCompleteForecast
+      summary: Complete weather forecast with percentiles
+      description: Full weather forecast for a given location containing all available parameters including probabilistic percentile values (10th and 90th percentile) for temperature and wind speed.
+      parameters:
+      - $ref: '#/components/parameters/lat'
+      - $ref: '#/components/parameters/lon'
+      - $ref: '#/components/parameters/altitude'
+      responses:
+        '200':
+          description: Successful forecast response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/METJSONForecast'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /classic:
+    get:
+      tags:
+      - data
+      operationId: getClassicForecast
+      summary: Classic XML weather forecast (legacy)
+      description: Legacy XML format forecast matching the old version 1.9 structure. Deprecated but maintained for backward compatibility.
+      parameters:
+      - $ref: '#/components/parameters/lat'
+      - $ref: '#/components/parameters/lon'
+      - $ref: '#/components/parameters/altitude'
+      responses:
+        '200':
+          description: Successful XML forecast response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+  /coverage:
+    get:
+      tags:
+      - data
+      operationId: getNowcastCoverage
+      summary: Radar coverage area
+      description: Returns the radar coverage area as a ZIP file containing geographic boundary data indicating where nowcast data is available.
+      responses:
+        '200':
+          description: Coverage area data
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /status:
+    get:
+      tags:
+      - data
+      operationId: getNowcastStatus
+      summary: Operational status
+      description: Returns the current operational status of the Nowcast service.
+      responses:
+        '200':
+          description: Status information
+          content:
+            application/json:
+              schema:
+                type: object
+            application/xml:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+  /mox:
+    get:
+      tags:
+      - data
+      operationId: getOceanForecastXml
+      summary: Ocean forecast in MOX XML format
+      description: Returns ocean forecast data in legacy MOX XML format for a specific marine point in Northwestern Europe.
+      parameters:
+      - $ref: '#/components/parameters/lat_3'
+      - $ref: '#/components/parameters/lon_3'
+      responses:
+        '200':
+          description: XML ocean forecast response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+  /sun:
+    get:
+      tags:
+      - data
+      operationId: getSunEvents
+      summary: Get sun rise, set, and transit times
+      description: Calculate sun rise, set, transit (solar noon), and twilight events for a specific location and date. Twilight times include civil, nautical, and astronomical twilight. All times are returned in ISO 8601 format.
+      parameters:
+      - $ref: '#/components/parameters/lat_4'
+      - $ref: '#/components/parameters/lon_4'
+      - $ref: '#/components/parameters/date'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Sun event times for the given location and date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SunResponse'
+              example:
+                type: Feature
+                geometry:
+                  type: Point
+                  coordinates:
+                  - 10.75
+                  - 59.91
+                properties:
+                  body: Sun
+                  sunrise:
+                    time: '2024-06-21T03:52:00+02:00'
+                    azimuth: 43.2
+                  sunset:
+                    time: '2024-06-21T22:04:00+02:00'
+                    azimuth: 317.8
+                  solarnoon:
+                    time: '2024-06-21T12:58:00+02:00'
+                    elevation: 54.1
+                  solarmidnight:
+                    time: '2024-06-21T00:58:00+02:00'
+                    elevation: -6.2
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request - missing or invalid parameters
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /moon:
+    get:
+      tags:
+      - data
+      operationId: getMoonEvents
+      summary: Get moon rise, set, and transit times
+      description: Calculate moon rise, set, transit, and phase events for a specific location and date. Includes moon phase information and illumination fraction. All times are returned in ISO 8601 format.
+      parameters:
+      - $ref: '#/components/parameters/lat_4'
+      - $ref: '#/components/parameters/lon_4'
+      - $ref: '#/components/parameters/date'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Moon event times for the given location and date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoonResponse'
+              example:
+                type: Feature
+                geometry:
+                  type: Point
+                  coordinates:
+                  - 10.75
+                  - 59.91
+                properties:
+                  body: Moon
+                  moonrise:
+                    time: '2024-06-21T14:30:00+02:00'
+                    azimuth: 62.4
+                  moonset:
+                    time: '2024-06-22T01:15:00+02:00'
+                    azimuth: 298.6
+                  high_moon:
+                    time: '2024-06-21T19:52:00+02:00'
+                    elevation: 40.3
+                  phase:
+                    value: 0.65
+                    illumination: 72.4
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+components:
+  schemas:
+    ForecastTimeStep:
+      title: Forecast Time Step
+      type: object
+      required:
+      - time
+      - data
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp for which these forecast values are valid
+          example: '2024-01-15T07:00:00Z'
+        data:
+          type: object
+          description: Forecast data for this time step
+          properties:
+            instant:
+              type: object
+              description: Parameters valid at this exact point in time
+              properties:
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+            next_1_hours:
+              type: object
+              description: Parameters with validity over the next 1 hour
+              properties:
+                summary:
+                  $ref: '#/components/schemas/ForecastSummary'
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+            next_6_hours:
+              type: object
+              description: Parameters with validity over the next 6 hours
+              properties:
+                summary:
+                  $ref: '#/components/schemas/ForecastSummary'
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+            next_12_hours:
+              type: object
+              description: Parameters with validity over the next 12 hours
+              properties:
+                summary:
+                  $ref: '#/components/schemas/ForecastSummary'
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+    ForecastSummary:
+      type: object
+      description: Summary of weather conditions for a time period
+      required:
+      - symbol_code
+      properties:
+        symbol_code:
+          $ref: '#/components/schemas/WeatherSymbol'
+        symbol_confidence:
+          $ref: '#/components/schemas/SymbolConfidence'
+    Forecast:
+      title: Forecast Timeseries
+      type: object
+      required:
+      - meta
+      - timeseries
+      properties:
+        meta:
+          type: object
+          required:
+          - updated_at
+          - units
+          properties:
+            updated_at:
+              type: string
+              format: date-time
+              description: Timestamp when this forecast was last updated
+              example: '2024-01-15T06:00:00Z'
+            units:
+              $ref: '#/components/schemas/ForecastUnits'
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeStep'
+    CelestialEventWithElevation:
+      title: Celestial Event With Elevation
+      type: object
+      description: A celestial body transit event with timestamp and elevation angle
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the event
+        elevation:
+          type: number
+          description: Elevation angle above the horizon in degrees
+    SymbolConfidence:
+      type: string
+      description: Estimate of certainty for a weather symbol
+      enum:
+      - certain
+      - somewhat certain
+      - uncertain
+    MoonResponse:
+      title: Moon Events Response
+      type: object
+      description: GeoJSON Feature containing moon event data for the requested location and date
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry_4'
+        properties:
+          $ref: '#/components/schemas/MoonProperties'
+    ForecastData:
+      type: object
+      description: Map of weather parameter names to their float values. Common parameters include air_temperature (celsius), wind_speed (m/s), wind_from_direction (degrees), precipitation_amount (mm), relative_humidity (%), cloud_area_fraction (%), and ultraviolet_index_clear_sky.
+      additionalProperties:
+        type: number
+    PointGeometry_4:
+      title: GeoJSON Point Geometry
+      type: object
+      required:
+      - type
+      - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+        coordinates:
+          type: array
+          minItems: 2
+          items:
+            type: number
+          description: '[longitude, latitude] in decimal degrees'
+          example:
+          - 10.75
+          - 59.91
+    PointGeometry:
+      title: GeoJSON Point Geometry
+      type: object
+      required:
+      - type
+      - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+          - Point
+        coordinates:
+          type: array
+          minItems: 2
+          maxItems: 3
+          items:
+            type: number
+          description: '[longitude, latitude, altitude]. All values in decimal degrees / meters.'
+          example:
+          - 9.58
+          - 60.1
+          - 200
+    MoonProperties:
+      title: Moon Event Properties
+      type: object
+      properties:
+        body:
+          type: string
+          description: Celestial body name
+          example: Moon
+        moonrise:
+          $ref: '#/components/schemas/CelestialEvent'
+        moonset:
+          $ref: '#/components/schemas/CelestialEvent'
+        high_moon:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+        low_moon:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+        phase:
+          type: object
+          properties:
+            value:
+              type: number
+              description: Phase value from 0 (new moon) to 1 (full moon cycle)
+            illumination:
+              type: number
+              description: Percentage of moon surface illuminated
+    ForecastUnits:
+      type: object
+      description: Map of parameter names to their unit strings
+      additionalProperties:
+        type: string
+    SunProperties:
+      title: Sun Event Properties
+      type: object
+      properties:
+        body:
+          type: string
+          description: Celestial body name
+          example: Sun
+        sunrise:
+          $ref: '#/components/schemas/CelestialEvent'
+        sunset:
+          $ref: '#/components/schemas/CelestialEvent'
+        solarnoon:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+        solarmidnight:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+    CelestialEvent:
+      title: Celestial Event
+      type: object
+      description: A celestial body event with timestamp and azimuth
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the event (in requested timezone offset)
+        azimuth:
+          type: number
+          description: Compass bearing in degrees (0=North, 90=East, 180=South, 270=West)
+    METJSONForecast:
+      title: GeoJSON Forecast Timeseries
+      type: object
+      required:
+      - type
+      - geometry
+      - properties
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+          example: Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/Forecast'
+    WeatherSymbol:
+      type: string
+      description: Identifier summarizing the weather condition for a time period. See https://api.met.no/weatherapi/weathericon/2.0/ for icon images.
+      example: clearsky_day
+      enum:
+      - clearsky_day
+      - clearsky_night
+      - clearsky_polartwilight
+      - fair_day
+      - fair_night
+      - fair_polartwilight
+      - partlycloudy_day
+      - partlycloudy_night
+      - partlycloudy_polartwilight
+      - cloudy
+      - fog
+      - lightrain
+      - rain
+      - heavyrain
+      - lightrainandthunder
+      - rainandthunder
+      - heavyrainandthunder
+      - lightsnow
+      - snow
+      - heavysnow
+      - lightsnowandthunder
+      - snowandthunder
+      - heavysnowandthunder
+      - lightsleet
+      - sleet
+      - heavysleet
+      - lightsleetandthunder
+      - sleetandthunder
+      - heavysleetandthunder
+      - lightrainshowers_day
+      - lightrainshowers_night
+      - lightrainshowers_polartwilight
+      - rainshowers_day
+      - rainshowers_night
+      - rainshowers_polartwilight
+      - heavyrainshowers_day
+      - heavyrainshowers_night
+      - heavyrainshowers_polartwilight
+      - lightrainshowersandthunder_day
+      - lightrainshowersandthunder_night
+      - lightrainshowersandthunder_polartwilight
+      - rainshowersandthunder_day
+      - rainshowersandthunder_night
+      - rainshowersandthunder_polartwilight
+      - heavyrainshowersandthunder_day
+      - heavyrainshowersandthunder_night
+      - heavyrainshowersandthunder_polartwilight
+      - lightsnowshowers_day
+      - lightsnowshowers_night
+      - lightsnowshowers_polartwilight
+      - snowshowers_day
+      - snowshowers_night
+      - snowshowers_polartwilight
+      - heavysnowshowers_day
+      - heavysnowshowers_night
+      - heavysnowshowers_polartwilight
+      - lightssnowshowersandthunder_day
+      - lightssnowshowersandthunder_night
+      - lightssnowshowersandthunder_polartwilight
+      - snowshowersandthunder_day
+      - snowshowersandthunder_night
+      - snowshowersandthunder_polartwilight
+      - heavysnowshowersandthunder_day
+      - heavysnowshowersandthunder_night
+      - heavysnowshowersandthunder_polartwilight
+      - lightsleetshowers_day
+      - lightsleetshowers_night
+      - lightsleetshowers_polartwilight
+      - sleetshowers_day
+      - sleetshowers_night
+      - sleetshowers_polartwilight
+      - heavysleetshowers_day
+      - heavysleetshowers_night
+      - heavysleetshowers_polartwilight
+      - lightssleetshowersandthunder_day
+      - lightssleetshowersandthunder_night
+      - lightssleetshowersandthunder_polartwilight
+      - sleetshowersandthunder_day
+      - sleetshowersandthunder_night
+      - sleetshowersandthunder_polartwilight
+      - heavysleetshowersandthunder_day
+      - heavysleetshowersandthunder_night
+      - heavysleetshowersandthunder_polartwilight
+    SunResponse:
+      title: Sun Events Response
+      type: object
+      description: GeoJSON Feature containing sun event data for the requested location and date
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry_4'
+        properties:
+          $ref: '#/components/schemas/SunProperties'
+  parameters:
+    lat:
+      name: lat
+      in: query
+      required: true
+      description: Latitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -90
+        maximum: 90
+        example: 60.1
+    lon_3:
+      name: lon
+      in: query
+      required: true
+      description: Longitude in decimal degrees (must be a marine location)
+      schema:
+        type: number
+        format: float
+        minimum: -180
+        maximum: 180
+        example: 5.0
+    date:
+      name: date
+      in: query
+      required: false
+      description: Date in YYYY-MM-DD format in local time (not UTC). Defaults to today if not provided.
+      schema:
+        type: string
+        format: date
+        example: '2024-06-21'
+    lat_4:
+      name: lat
+      in: query
+      required: true
+      description: Latitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -90
+        maximum: 90
+        example: 59.91
+    lon:
+      name: lon
+      in: query
+      required: true
+      description: Longitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -180
+        maximum: 180
+        example: 9.58
+    altitude:
+      name: altitude
+      in: query
+      required: false
+      description: Ground surface elevation in meters above sea level
+      schema:
+        type: integer
+        example: 200
+    lon_4:
+      name: lon
+      in: query
+      required: true
+      description: Longitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -180
+        maximum: 180
+        example: 10.75
+    lat_3:
+      name: lat
+      in: query
+      required: true
+      description: Latitude in decimal degrees (must be a marine location)
+      schema:
+        type: number
+        format: float
+        minimum: -90
+        maximum: 90
+        example: 60.0
+    offset:
+      name: offset
+      in: query
+      required: false
+      description: Timezone offset string in the form +HH:MM or -HH:MM (e.g., +02:00 or -04:30). Used to interpret the date parameter and return times in local time.
+      schema:
+        type: string
+        pattern: ^[+-]\d{2}:\d{2}$
+        example: +02:00
+externalDocs:
+  description: Official documentation
+  url: https://api.met.no/weatherapi/locationforecast/2.0/documentation
