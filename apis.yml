@@ -10,7 +10,19 @@ description: >-
   observation data. All data is open under CC BY 4.0 and requires only a
   User-Agent identification header — no API key or account is needed.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: open
+  trial: false
+  try_now: true
+  public: true
+  label: Free · Open access
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/yr-no.png
 url: https://raw.githubusercontent.com/api-evangelist/yr-no/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -27,147 +39,101 @@ tags:
   - Marine Weather
   - Alerts
 apis:
-  - name: Locationforecast API
-    description: >-
-      Weather forecasts for any location on Earth up to nine days ahead,
-      returning temperature, wind, precipitation, cloud cover, humidity, and
-      more. Available in compact JSON, complete JSON with probabilistic
-      percentiles, and legacy XML formats.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
-    baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
-    tags:
-      - Weather Forecast
-      - Location
-      - Global
-    properties:
-      - type: Documentation
-        url: https://api.met.no/weatherapi/locationforecast/2.0/documentation
-      - type: OpenAPI
-        url: https://api.met.no/weatherapi/locationforecast/2.0/swagger
-
-  - name: MetAlerts API
-    description: >-
-      Weather alerts and warnings issued by the Norwegian Meteorological
-      Institute for Norway and surrounding areas, returned as CAP (Common
-      Alerting Protocol) XML or GeoJSON.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api.met.no/weatherapi/metalerts/2.0/documentation
-    baseURL: https://api.met.no/weatherapi/metalerts/2.0/
-    tags:
-      - Weather Alerts
-      - Warnings
-      - Norway
-    properties:
-      - type: Documentation
-        url: https://api.met.no/weatherapi/metalerts/2.0/documentation
-      - type: OpenAPI
-        url: https://api.met.no/weatherapi/metalerts/2.0/swagger
-
-  - name: Nowcast API
-    description: >-
-      Immediate short-range weather forecasts for the Nordic area based on
-      radar data, providing precipitation and wind for the next two hours.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api.met.no/weatherapi/nowcast/2.0/documentation
-    baseURL: https://api.met.no/weatherapi/nowcast/2.0/
-    tags:
-      - Nowcast
-      - Short-range Forecast
-      - Nordic
-    properties:
-      - type: Documentation
-        url: https://api.met.no/weatherapi/nowcast/2.0/documentation
-      - type: OpenAPI
-        url: https://api.met.no/weatherapi/nowcast/2.0/swagger
-
-  - name: Sunrise API
-    description: >-
-      Calculate sun and moon rise, set, and transit events as seen from any
-      specific location on Earth, including civil, nautical, and astronomical
-      twilight times.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api.met.no/weatherapi/sunrise/3.0/documentation
-    baseURL: https://api.met.no/weatherapi/sunrise/3.0/
-    tags:
-      - Sunrise
-      - Sunset
-      - Moon
-      - Astronomy
-      - Global
-    properties:
-      - type: Documentation
-        url: https://api.met.no/weatherapi/sunrise/3.0/documentation
-      - type: OpenAPI
-        url: https://api.met.no/weatherapi/sunrise/3.0/swagger
-
-  - name: Frost API
-    description: >-
-      REST API for historical meteorological observation data from weather
-      stations worldwide, maintained by MET Norway. Access time-series
-      temperature, precipitation, wind, and other observations.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://frost.met.no/howto.html
-    baseURL: https://frost.met.no/
-    tags:
-      - Observations
-      - Historical Data
-      - Climate
-      - Global
-    properties:
-      - type: Documentation
-        url: https://frost.met.no/howto.html
-
-  - name: Oceanforecast API
-    description: >-
-      Ocean forecasts for points at sea in Northwestern Europe, providing
-      wave height, sea temperature, current direction and speed, and salinity.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api.met.no/weatherapi/oceanforecast/2.0/documentation
-    baseURL: https://api.met.no/weatherapi/oceanforecast/2.0/
-    tags:
-      - Ocean
-      - Marine
-      - Forecast
-      - Northwestern Europe
-    properties:
-      - type: Documentation
-        url: https://api.met.no/weatherapi/oceanforecast/2.0/documentation
-      - type: OpenAPI
-        url: https://api.met.no/weatherapi/oceanforecast/2.0/swagger
-
-  - name: Radar API
-    description: >-
-      Radar composite images for various areas in the Nordic region, providing
-      near real-time precipitation radar data in multiple formats and scan types.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api.met.no/weatherapi/radar/2.0/documentation
-    baseURL: https://api.met.no/weatherapi/radar/2.0/
-    tags:
-      - Radar
-      - Precipitation
-      - Nordic
-    properties:
-      - type: Documentation
-        url: https://api.met.no/weatherapi/radar/2.0/documentation
-      - type: OpenAPI
-        url: https://api.met.no/weatherapi/radar/2.0/swagger
-
-  - name: Air Quality Forecast API
-    description: >-
-      Forecasts of air quality for locations in Norway, including concentrations
-      of PM2.5, PM10, NO2, and ozone, with daily and hourly granularity.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api.met.no/weatherapi/airqualityforecast/0.1/documentation
-    baseURL: https://api.met.no/weatherapi/airqualityforecast/0.1/
-    tags:
-      - Air Quality
-      - Pollution
-      - Norway
-    properties:
-      - type: Documentation
-        url: https://api.met.no/weatherapi/airqualityforecast/0.1/documentation
-
+- name: Frost API
+  description: >-
+    REST API for historical meteorological observation data from weather stations worldwide, maintained
+    by MET Norway. Access time-series temperature, precipitation, wind, and other observations.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://frost.met.no/howto.html
+  baseURL: https://frost.met.no/
+  tags:
+  - Observations
+  - Historical Data
+  - Climate
+  - Global
+  properties:
+  - type: Documentation
+    url: https://frost.met.no/howto.html
+- name: Air Quality Forecast API
+  description: >-
+    Forecasts of air quality for locations in Norway, including concentrations of PM2.5, PM10, NO2, and
+    ozone, with daily and hourly granularity.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://api.met.no/weatherapi/airqualityforecast/0.1/documentation
+  baseURL: https://api.met.no/weatherapi/airqualityforecast/0.1/
+  tags:
+  - Air Quality
+  - Pollution
+  - Norway
+  properties:
+  - type: Documentation
+    url: https://api.met.no/weatherapi/airqualityforecast/0.1/documentation
+- aid: yr-no:yr-no-alerts-api
+  name: Yr alerts API
+  description: Weather alert endpoints
+  humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+  baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
+  tags:
+  - alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/yr-no-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/metalerts/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/nowcast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/sunrise/3.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/oceanforecast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/radar/2.0/documentation
+- aid: yr-no:yr-no-data-api
+  name: Yr data API
+  description: Forecast data endpoints
+  humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+  baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
+  tags:
+  - data
+  properties:
+  - type: OpenAPI
+    url: openapi/yr-no-data-api-openapi.yml
+  - type: Documentation
+    url: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/metalerts/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/nowcast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/sunrise/3.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/oceanforecast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/radar/2.0/documentation
+- aid: yr-no:yr-no-metadata-api
+  name: Yr metadata API
+  description: Service metadata endpoints
+  humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+  baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
+  tags:
+  - metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/yr-no-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/metalerts/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/nowcast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/sunrise/3.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/oceanforecast/2.0/documentation
+  - type: Documentation
+    url: https://api.met.no/weatherapi/radar/2.0/documentation
 common:
   - type: AgenticAccess
     url: agentic-access/yr-no-agentic-access.yml
