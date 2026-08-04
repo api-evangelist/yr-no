@@ -1,0 +1,18 @@
+{
+  "provider": "yr-no",
+  "sources": [
+    "yr-no-alerts-api-openapi.yml",
+    "yr-no-data-api-openapi.yml",
+    "yr-no-metadata-api-openapi.yml"
+  ],
+  "outputs": [
+    "yr-no-alerts-api-openapi.yml",
+    "yr-no-data-api-openapi.yml",
+    "yr-no-metadata-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

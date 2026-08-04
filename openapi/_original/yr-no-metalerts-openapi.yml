@@ -1,0 +1,510 @@
+openapi: 3.0.3
+info:
+  title: MetAlerts API
+  description: >-
+    Weather alerts and warnings issued by the Norwegian Meteorological Institute
+    for Norway and surrounding areas, returned as CAP (Common Alerting Protocol)
+    XML, RSS, or GeoJSON. Supports filtering by event type, severity, geographic
+    domain, and county. Data is open under CC BY 4.0.
+  version: '2.0'
+  contact:
+    name: Developer Support
+    url: https://developer.yr.no/
+    email: weatherapi-adm@met.no
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  termsOfService: https://developer.yr.no/doc/TermsOfService/
+externalDocs:
+  description: Official documentation
+  url: https://api.met.no/weatherapi/metalerts/2.0/documentation
+servers:
+  - url: https://api.met.no/weatherapi/metalerts/2.0
+    description: MET Norway MetAlerts API
+tags:
+  - name: alerts
+    description: Weather alert endpoints
+  - name: metadata
+    description: Reference and metadata endpoints
+paths:
+  /current:
+    get:
+      tags:
+        - alerts
+      operationId: getCurrentAlerts
+      summary: Get active weather alerts
+      description: >-
+        Returns all currently active weather alerts and warnings. Supports
+        filtering by event type, geographic domain, county, and coordinates.
+      parameters:
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/event'
+        - $ref: '#/components/parameters/geographicDomain'
+        - $ref: '#/components/parameters/county'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/cap'
+      responses:
+        '200':
+          description: Active alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertCollection'
+            application/xml:
+              schema:
+                type: string
+                description: CAP XML alert feed
+            application/rss+xml:
+              schema:
+                type: string
+                description: RSS feed of active alerts
+        '204':
+          description: No Content - no active alerts matching criteria
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /all:
+    get:
+      tags:
+        - alerts
+      operationId: getAllAlerts
+      summary: Get all alerts from the last 30 days
+      description: >-
+        Returns both active and inactive weather alerts from the last 30 days.
+        Useful for reviewing recent alert history.
+      parameters:
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/event'
+        - $ref: '#/components/parameters/geographicDomain'
+        - $ref: '#/components/parameters/county'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/cap'
+      responses:
+        '200':
+          description: All recent alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertCollection'
+            application/xml:
+              schema:
+                type: string
+            application/rss+xml:
+              schema:
+                type: string
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+  /archive:
+    get:
+      tags:
+        - alerts
+      operationId: getArchivedAlerts
+      summary: Get archived historical alerts
+      description: >-
+        Retrieve archived alerts by month or specific date. Historical data
+        available from January 2019 onwards. Filter heavily to avoid timeouts
+        on large result sets, especially for GeoJSON format.
+      parameters:
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/event'
+        - $ref: '#/components/parameters/geographicDomain'
+        - $ref: '#/components/parameters/county'
+        - name: period
+          in: query
+          required: false
+          description: Archive period in YYYY-MM format
+          schema:
+            type: string
+            pattern: '^\d{4}-\d{2}$'
+            example: '2024-01'
+        - name: date
+          in: query
+          required: false
+          description: Specific archive date in YYYY-MM-DD format
+          schema:
+            type: string
+            format: date
+            example: '2024-01-15'
+        - $ref: '#/components/parameters/sort'
+      responses:
+        '200':
+          description: Archived alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertCollection'
+            application/xml:
+              schema:
+                type: string
+            application/rss+xml:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+  /test:
+    get:
+      tags:
+        - alerts
+      operationId: getTestAlerts
+      summary: Get active test alerts
+      description: Returns currently active test warning alerts for development and testing.
+      parameters:
+        - $ref: '#/components/parameters/lang'
+      responses:
+        '200':
+          description: Test alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertCollection'
+            application/xml:
+              schema:
+                type: string
+            application/rss+xml:
+              schema:
+                type: string
+        '204':
+          description: No Content
+        '500':
+          description: Internal Server Error
+  /test_all:
+    get:
+      tags:
+        - alerts
+      operationId: getAllTestAlerts
+      summary: Get all test alerts from the last 30 days
+      description: Returns all test warning alerts from the last 30 days.
+      parameters:
+        - $ref: '#/components/parameters/lang'
+      responses:
+        '200':
+          description: All test alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertCollection'
+            application/xml:
+              schema:
+                type: string
+        '204':
+          description: No Content
+        '500':
+          description: Internal Server Error
+  /example:
+    get:
+      tags:
+        - alerts
+      operationId: getExampleAlerts
+      summary: Get example alerts for development
+      description: >-
+        Returns sample alert messages that expire in 2034, intended for
+        development and integration testing.
+      parameters:
+        - $ref: '#/components/parameters/lang'
+      responses:
+        '200':
+          description: Example alerts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertCollection'
+            application/xml:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+  /locations:
+    get:
+      tags:
+        - metadata
+      operationId: getAlertLocations
+      summary: Get geographic area definitions
+      description: Returns geographic area definitions used in alerts as a GeoJSON FeatureCollection.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of alert areas
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+  /values:
+    get:
+      tags:
+        - metadata
+      operationId: getAlertValues
+      summary: List allowed parameter values
+      description: Returns allowed values for query parameters such as event types.
+      responses:
+        '200':
+          description: Allowed parameter values
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+  /changelog:
+    get:
+      tags:
+        - metadata
+      operationId: getChangelog
+      summary: RSS feed of product changes
+      description: Returns an RSS feed listing changes and updates to this product.
+      responses:
+        '200':
+          description: RSS changelog feed
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+  /healthz:
+    get:
+      tags:
+        - metadata
+      operationId: healthCheck
+      summary: Health check
+      description: Check the health status of the MetAlerts service.
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  parameters:
+    lang:
+      name: lang
+      in: query
+      required: false
+      description: Output language
+      schema:
+        type: string
+        enum:
+          - 'no'
+          - en
+        example: en
+    event:
+      name: event
+      in: query
+      required: false
+      description: Filter by weather warning event type
+      schema:
+        type: string
+        enum:
+          - blowingSnow
+          - forestFire
+          - gale
+          - ice
+          - icing
+          - lightning
+          - polarLow
+          - rain
+          - rainFlood
+          - snow
+          - stormSurge
+          - wind
+        example: wind
+    geographicDomain:
+      name: geographicDomain
+      in: query
+      required: false
+      description: Filter by geographic domain
+      schema:
+        type: string
+        enum:
+          - land
+          - marine
+    county:
+      name: county
+      in: query
+      required: false
+      description: Two-digit Norwegian county number (land alerts only)
+      schema:
+        type: string
+        pattern: '^\d{2}$'
+        example: '11'
+    lat:
+      name: lat
+      in: query
+      required: false
+      description: Latitude for coordinate-based geographic search
+      schema:
+        type: number
+        format: float
+        example: 59.91
+    lon:
+      name: lon
+      in: query
+      required: false
+      description: Longitude for coordinate-based geographic search
+      schema:
+        type: number
+        format: float
+        example: 10.75
+    sort:
+      name: sort
+      in: query
+      required: false
+      description: Sort RSS result items by field
+      schema:
+        type: string
+        enum:
+          - area
+          - event
+          - incidentName
+          - t_onset
+          - t_published
+          - type
+    cap:
+      name: cap
+      in: query
+      required: false
+      description: CAP identifier to retrieve a specific CAP XML message
+      schema:
+        type: string
+  schemas:
+    AlertCollection:
+      title: Alert Collection
+      type: object
+      description: >-
+        GeoJSON FeatureCollection of weather alert features. Each feature
+        represents one alert with geographic and attribute data.
+      properties:
+        type:
+          type: string
+          enum:
+            - FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertFeature'
+    AlertFeature:
+      title: Alert Feature
+      type: object
+      description: GeoJSON Feature representing a single weather alert
+      properties:
+        type:
+          type: string
+          enum:
+            - Feature
+        geometry:
+          type: object
+          description: Geographic area covered by the alert (Polygon or MultiPolygon)
+        properties:
+          $ref: '#/components/schemas/AlertProperties'
+    AlertProperties:
+      title: Alert Properties
+      type: object
+      description: Properties of a weather alert
+      properties:
+        id:
+          type: string
+          description: CAP message identifier
+        title:
+          type: string
+          description: Alert title
+        description:
+          type: string
+          description: Detailed alert description
+        event:
+          type: string
+          description: Weather event type (e.g., wind, rain, snow)
+        eventAwarenessName:
+          type: string
+          description: Human-readable event awareness name
+        severity:
+          type: string
+          enum:
+            - Extreme
+            - Severe
+            - Moderate
+            - Minor
+          description: Alert severity level
+        certainty:
+          type: string
+          enum:
+            - Observed
+            - Likely
+            - Possible
+            - Unlikely
+        awareness_level:
+          type: string
+          description: Color-coded awareness level (red, orange, yellow, green)
+        onset:
+          type: string
+          format: date-time
+          description: When the alert period begins
+        expires:
+          type: string
+          format: date-time
+          description: When the alert expires
+        published:
+          type: string
+          format: date-time
+          description: When the alert was published
+        msgType:
+          type: string
+          enum:
+            - Alert
+            - Update
+            - Cancel
+          description: CAP message type
+        county:
+          type: array
+          items:
+            type: string
+          description: Affected Norwegian county codes
+        geographicDomain:
+          type: string
+          enum:
+            - land
+            - marine
+        incidentName:
+          type: string
+          description: Named incident identifier (red alerts only)
+        resources:
+          type: array
+          items:
+            type: object
+            properties:
+              description:
+                type: string
+              mimeType:
+                type: string
+              uri:
+                type: string
+                format: uri

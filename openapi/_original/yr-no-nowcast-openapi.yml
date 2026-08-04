@@ -1,0 +1,370 @@
+openapi: 3.0.3
+info:
+  title: Nowcast API
+  description: >-
+    Immediate short-range weather forecasts for the Nordic area based on radar
+    data, providing precipitation and wind conditions for the next two hours.
+    Updated every five minutes. Only available for locations within radar
+    coverage of the Nordic area. Data is open under CC BY 4.0.
+  version: '2.0'
+  contact:
+    name: Developer Support
+    url: https://developer.yr.no/
+    email: weatherapi-adm@met.no
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  termsOfService: https://developer.yr.no/doc/TermsOfService/
+externalDocs:
+  description: Official documentation
+  url: https://api.met.no/weatherapi/nowcast/2.0/documentation
+servers:
+  - url: https://api.met.no/weatherapi/nowcast/2.0
+    description: MET Norway Nowcast API
+tags:
+  - name: data
+    description: Nowcast data endpoints
+  - name: metadata
+    description: Service metadata endpoints
+paths:
+  /complete:
+    get:
+      tags:
+        - data
+      operationId: getNowcastComplete
+      summary: Complete nowcast forecast (JSON)
+      description: >-
+        Returns an immediate short-range weather forecast for a specified
+        location in the Nordic area as GeoJSON. Only available within radar
+        coverage; returns 422 for locations outside the Nordic area.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/altitude'
+      responses:
+        '200':
+          description: Successful nowcast response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/METJSONForecast'
+              example:
+                type: Feature
+                geometry:
+                  type: Point
+                  coordinates: [10.75, 59.91]
+                properties:
+                  meta:
+                    updated_at: '2024-01-15T10:00:00Z'
+                    units:
+                      precipitation_rate: mm/h
+                      wind_speed: m/s
+                    radar_coverage: ok
+                  timeseries:
+                    - time: '2024-01-15T10:00:00Z'
+                      data:
+                        instant:
+                          details:
+                            precipitation_rate: 0.5
+                            wind_speed: 3.2
+                            wind_from_direction: 220.0
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request - missing or invalid parameters
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity - location is outside the Nordic nowcast area
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /classic:
+    get:
+      tags:
+        - data
+      operationId: getNowcastClassic
+      summary: Classic nowcast forecast (XML, legacy)
+      description: >-
+        Returns an immediate short-range weather forecast for a Nordic location
+        in legacy XML format.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/altitude'
+      responses:
+        '200':
+          description: XML nowcast response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity - outside Nordic area
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+  /coverage:
+    get:
+      tags:
+        - data
+      operationId: getNowcastCoverage
+      summary: Radar coverage area
+      description: >-
+        Returns the radar coverage area as a ZIP file containing geographic
+        boundary data indicating where nowcast data is available.
+      responses:
+        '200':
+          description: Coverage area data
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  /status:
+    get:
+      tags:
+        - data
+      operationId: getNowcastStatus
+      summary: Operational status
+      description: Returns the current operational status of the Nowcast service.
+      responses:
+        '200':
+          description: Status information
+          content:
+            application/json:
+              schema:
+                type: object
+            application/xml:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+  /changelog:
+    get:
+      tags:
+        - metadata
+      operationId: getChangelog
+      summary: RSS feed of product changes
+      description: Returns an RSS feed listing changes and updates to this product.
+      responses:
+        '200':
+          description: RSS changelog feed
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+  /healthz:
+    get:
+      tags:
+        - metadata
+      operationId: healthCheck
+      summary: Health check
+      description: Check the health status of the Nowcast service.
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            text/plain:
+              schema:
+                type: string
+  /locations:
+    get:
+      tags:
+        - metadata
+      operationId: listLocations
+      summary: List available pre-defined locations
+      description: Returns a GeoJSON FeatureCollection of pre-defined locations.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection
+          content:
+            application/json:
+              schema:
+                type: object
+  /schema:
+    get:
+      tags:
+        - metadata
+      operationId: getSchema
+      summary: XML schema
+      description: Returns the XML schema for the classic format responses.
+      responses:
+        '200':
+          description: XML schema
+          content:
+            text/xml:
+              schema:
+                type: string
+components:
+  parameters:
+    lat:
+      name: lat
+      in: query
+      required: true
+      description: Latitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -90
+        maximum: 90
+        example: 59.91
+    lon:
+      name: lon
+      in: query
+      required: true
+      description: Longitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -180
+        maximum: 180
+        example: 10.75
+    altitude:
+      name: altitude
+      in: query
+      required: false
+      description: Height in meters above sea level
+      schema:
+        type: integer
+        example: 0
+  schemas:
+    METJSONForecast:
+      title: GeoJSON Nowcast Timeseries
+      type: object
+      required:
+        - type
+        - geometry
+        - properties
+      properties:
+        type:
+          type: string
+          enum:
+            - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/Forecast'
+    PointGeometry:
+      title: GeoJSON Point Geometry
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - Point
+        coordinates:
+          type: array
+          minItems: 2
+          items:
+            type: number
+          description: '[longitude, latitude]. All values in decimal degrees.'
+          example: [10.75, 59.91]
+    Forecast:
+      title: Nowcast Timeseries
+      type: object
+      required:
+        - meta
+        - timeseries
+      properties:
+        meta:
+          type: object
+          required:
+            - updated_at
+            - units
+          properties:
+            updated_at:
+              type: string
+              format: date-time
+              description: Timestamp when this forecast was last updated
+            units:
+              $ref: '#/components/schemas/ForecastUnits'
+            radar_coverage:
+              $ref: '#/components/schemas/RadarCoverage'
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeStep'
+    ForecastTimeStep:
+      title: Nowcast Time Step
+      type: object
+      required:
+        - time
+        - data
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp for this forecast step
+        data:
+          type: object
+          properties:
+            instant:
+              type: object
+              properties:
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+            next_1_hours:
+              type: object
+              properties:
+                summary:
+                  $ref: '#/components/schemas/ForecastSummary'
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+    ForecastData:
+      type: object
+      description: >-
+        Map of weather parameter names to their float values. Nowcast parameters
+        include precipitation_rate (mm/h), wind_speed (m/s),
+        wind_from_direction (degrees), and air_temperature (celsius).
+      additionalProperties:
+        type: number
+    ForecastSummary:
+      type: object
+      required:
+        - symbol_code
+      properties:
+        symbol_code:
+          type: string
+          description: Weather symbol identifier for this period
+        symbol_confidence:
+          type: string
+          enum:
+            - certain
+            - somewhat certain
+            - uncertain
+    ForecastUnits:
+      type: object
+      description: Map of parameter names to their unit strings
+      additionalProperties:
+        type: string
+    RadarCoverage:
+      type: string
+      description: Radar coverage status for the requested location
+      enum:
+        - ok
+        - temporarily unavailable
+        - no coverage

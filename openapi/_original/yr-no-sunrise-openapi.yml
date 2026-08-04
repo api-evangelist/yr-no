@@ -1,0 +1,379 @@
+openapi: 3.0.3
+info:
+  title: Sunrise API
+  description: >-
+    Calculate sun and moon rise, set, and transit events as seen from any
+    specific location on Earth, including civil, nautical, and astronomical
+    twilight times. Returns results for a given date and location. Data is
+    open under CC BY 4.0.
+  version: '3.0'
+  contact:
+    name: Developer Support
+    url: https://developer.yr.no/
+    email: weatherapi-adm@met.no
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  termsOfService: https://developer.yr.no/doc/TermsOfService/
+externalDocs:
+  description: Official documentation
+  url: https://api.met.no/weatherapi/sunrise/3.0/documentation
+servers:
+  - url: https://api.met.no/weatherapi/sunrise/3.0
+    description: MET Norway Sunrise API
+tags:
+  - name: data
+    description: Sun and moon event calculation endpoints
+  - name: metadata
+    description: Service metadata endpoints
+paths:
+  /sun:
+    get:
+      tags:
+        - data
+      operationId: getSunEvents
+      summary: Get sun rise, set, and transit times
+      description: >-
+        Calculate sun rise, set, transit (solar noon), and twilight events for
+        a specific location and date. Twilight times include civil, nautical,
+        and astronomical twilight. All times are returned in ISO 8601 format.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/date'
+        - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Sun event times for the given location and date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SunResponse'
+              example:
+                type: Feature
+                geometry:
+                  type: Point
+                  coordinates: [10.75, 59.91]
+                properties:
+                  body: Sun
+                  sunrise:
+                    time: '2024-06-21T03:52:00+02:00'
+                    azimuth: 43.2
+                  sunset:
+                    time: '2024-06-21T22:04:00+02:00'
+                    azimuth: 317.8
+                  solarnoon:
+                    time: '2024-06-21T12:58:00+02:00'
+                    elevation: 54.1
+                  solarmidnight:
+                    time: '2024-06-21T00:58:00+02:00'
+                    elevation: -6.2
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request - missing or invalid parameters
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /moon:
+    get:
+      tags:
+        - data
+      operationId: getMoonEvents
+      summary: Get moon rise, set, and transit times
+      description: >-
+        Calculate moon rise, set, transit, and phase events for a specific
+        location and date. Includes moon phase information and illumination
+        fraction. All times are returned in ISO 8601 format.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/date'
+        - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Moon event times for the given location and date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoonResponse'
+              example:
+                type: Feature
+                geometry:
+                  type: Point
+                  coordinates: [10.75, 59.91]
+                properties:
+                  body: Moon
+                  moonrise:
+                    time: '2024-06-21T14:30:00+02:00'
+                    azimuth: 62.4
+                  moonset:
+                    time: '2024-06-22T01:15:00+02:00'
+                    azimuth: 298.6
+                  high_moon:
+                    time: '2024-06-21T19:52:00+02:00'
+                    elevation: 40.3
+                  phase:
+                    value: 0.65
+                    illumination: 72.4
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /values:
+    get:
+      tags:
+        - metadata
+      operationId: listValues
+      summary: List allowed parameter values
+      description: Returns allowed values for query parameters such as type.
+      parameters:
+        - name: param
+          in: query
+          required: false
+          description: Parameter name to query allowed values for
+          schema:
+            type: string
+            enum:
+              - type
+      responses:
+        '200':
+          description: Allowed parameter values
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+  /changelog:
+    get:
+      tags:
+        - metadata
+      operationId: getChangelog
+      summary: RSS feed of product changes
+      description: Returns an RSS feed listing changes and updates to this product.
+      responses:
+        '200':
+          description: RSS changelog feed
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+  /healthz:
+    get:
+      tags:
+        - metadata
+      operationId: healthCheck
+      summary: Health check
+      description: Check the health status of the Sunrise service.
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            text/plain:
+              schema:
+                type: string
+  /locations:
+    get:
+      tags:
+        - metadata
+      operationId: listLocations
+      summary: List pre-defined locations
+      description: Returns a GeoJSON FeatureCollection of pre-defined locations.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of locations
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  parameters:
+    lat:
+      name: lat
+      in: query
+      required: true
+      description: Latitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -90
+        maximum: 90
+        example: 59.91
+    lon:
+      name: lon
+      in: query
+      required: true
+      description: Longitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -180
+        maximum: 180
+        example: 10.75
+    date:
+      name: date
+      in: query
+      required: false
+      description: >-
+        Date in YYYY-MM-DD format in local time (not UTC). Defaults to today
+        if not provided.
+      schema:
+        type: string
+        format: date
+        example: '2024-06-21'
+    offset:
+      name: offset
+      in: query
+      required: false
+      description: >-
+        Timezone offset string in the form +HH:MM or -HH:MM
+        (e.g., +02:00 or -04:30). Used to interpret the date parameter
+        and return times in local time.
+      schema:
+        type: string
+        pattern: '^[+-]\d{2}:\d{2}$'
+        example: '+02:00'
+  schemas:
+    SunResponse:
+      title: Sun Events Response
+      type: object
+      description: GeoJSON Feature containing sun event data for the requested location and date
+      properties:
+        type:
+          type: string
+          enum:
+            - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/SunProperties'
+    MoonResponse:
+      title: Moon Events Response
+      type: object
+      description: GeoJSON Feature containing moon event data for the requested location and date
+      properties:
+        type:
+          type: string
+          enum:
+            - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/MoonProperties'
+    PointGeometry:
+      title: GeoJSON Point Geometry
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - Point
+        coordinates:
+          type: array
+          minItems: 2
+          items:
+            type: number
+          description: '[longitude, latitude] in decimal degrees'
+          example: [10.75, 59.91]
+    SunProperties:
+      title: Sun Event Properties
+      type: object
+      properties:
+        body:
+          type: string
+          description: Celestial body name
+          example: Sun
+        sunrise:
+          $ref: '#/components/schemas/CelestialEvent'
+        sunset:
+          $ref: '#/components/schemas/CelestialEvent'
+        solarnoon:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+        solarmidnight:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+    MoonProperties:
+      title: Moon Event Properties
+      type: object
+      properties:
+        body:
+          type: string
+          description: Celestial body name
+          example: Moon
+        moonrise:
+          $ref: '#/components/schemas/CelestialEvent'
+        moonset:
+          $ref: '#/components/schemas/CelestialEvent'
+        high_moon:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+        low_moon:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+        phase:
+          type: object
+          properties:
+            value:
+              type: number
+              description: Phase value from 0 (new moon) to 1 (full moon cycle)
+            illumination:
+              type: number
+              description: Percentage of moon surface illuminated
+    CelestialEvent:
+      title: Celestial Event
+      type: object
+      description: A celestial body event with timestamp and azimuth
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the event (in requested timezone offset)
+        azimuth:
+          type: number
+          description: Compass bearing in degrees (0=North, 90=East, 180=South, 270=West)
+    CelestialEventWithElevation:
+      title: Celestial Event With Elevation
+      type: object
+      description: A celestial body transit event with timestamp and elevation angle
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the event
+        elevation:
+          type: number
+          description: Elevation angle above the horizon in degrees

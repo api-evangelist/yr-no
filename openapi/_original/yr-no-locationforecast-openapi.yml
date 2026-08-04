@@ -1,0 +1,510 @@
+openapi: 3.0.3
+info:
+  title: Locationforecast API
+  description: >-
+    Weather forecasts for any location on Earth up to nine days ahead, returning
+    temperature, wind, precipitation, cloud cover, humidity, and more. Available
+    in compact JSON, complete JSON with probabilistic percentiles, and legacy XML
+    formats. Data is open under CC BY 4.0 and requires only a User-Agent header.
+  version: '2.0'
+  contact:
+    name: Developer Support
+    url: https://developer.yr.no/
+    email: weatherapi-adm@met.no
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+  termsOfService: https://developer.yr.no/doc/TermsOfService/
+externalDocs:
+  description: Official documentation
+  url: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+servers:
+  - url: https://api.met.no/weatherapi/locationforecast/2.0
+    description: MET Norway Locationforecast API
+tags:
+  - name: data
+    description: Forecast data endpoints
+  - name: metadata
+    description: Service metadata endpoints
+paths:
+  /compact:
+    get:
+      tags:
+        - data
+      operationId: getCompactForecast
+      summary: Compact weather forecast
+      description: >-
+        Streamlined weather forecast for a given location containing the most
+        frequently used parameters. Returns a GeoJSON Feature with a timeseries
+        of forecast data steps.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/altitude'
+      responses:
+        '200':
+          description: Successful forecast response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/METJSONForecast'
+              example:
+                type: Feature
+                geometry:
+                  type: Point
+                  coordinates: [9.58, 60.10, 200]
+                properties:
+                  meta:
+                    updated_at: '2024-01-15T06:00:00Z'
+                    units:
+                      air_temperature: celsius
+                      precipitation_amount: mm
+                      wind_speed: m/s
+                  timeseries:
+                    - time: '2024-01-15T07:00:00Z'
+                      data:
+                        instant:
+                          details:
+                            air_temperature: 2.5
+                            wind_speed: 4.2
+                            wind_from_direction: 180.0
+                        next_1_hours:
+                          summary:
+                            symbol_code: partlycloudy_day
+                          details:
+                            precipitation_amount: 0.0
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request - missing or invalid parameters
+        '401':
+          description: Unauthorized - missing or invalid User-Agent
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /complete:
+    get:
+      tags:
+        - data
+      operationId: getCompleteForecast
+      summary: Complete weather forecast with percentiles
+      description: >-
+        Full weather forecast for a given location containing all available
+        parameters including probabilistic percentile values (10th and 90th
+        percentile) for temperature and wind speed.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/altitude'
+      responses:
+        '200':
+          description: Successful forecast response
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/METJSONForecast'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+        '502':
+          description: Bad Gateway
+        '503':
+          description: Service Unavailable
+        '504':
+          description: Gateway Timeout
+  /classic:
+    get:
+      tags:
+        - data
+      operationId: getClassicForecast
+      summary: Classic XML weather forecast (legacy)
+      description: >-
+        Legacy XML format forecast matching the old version 1.9 structure.
+        Deprecated but maintained for backward compatibility.
+      parameters:
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lon'
+        - $ref: '#/components/parameters/altitude'
+      responses:
+        '200':
+          description: Successful XML forecast response
+          content:
+            application/xml:
+              schema:
+                type: string
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+  /status:
+    get:
+      tags:
+        - metadata
+      operationId: getForecastStatus
+      summary: Operational status of the forecast model
+      description: Returns the current operational status of the Locationforecast model.
+      responses:
+        '200':
+          description: Status information
+          content:
+            application/json:
+              schema:
+                type: object
+            application/xml:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+  /changelog:
+    get:
+      tags:
+        - metadata
+      operationId: getChangelog
+      summary: RSS feed of product changes
+      description: Returns an RSS feed listing changes and updates to this product.
+      responses:
+        '200':
+          description: RSS changelog feed
+          content:
+            application/rss+xml:
+              schema:
+                type: string
+  /healthz:
+    get:
+      tags:
+        - metadata
+      operationId: healthCheck
+      summary: Health check
+      description: Check the health status of the Locationforecast service.
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            text/plain:
+              schema:
+                type: string
+  /schema:
+    get:
+      tags:
+        - metadata
+      operationId: getSchema
+      summary: OpenAPI schema
+      description: Returns the OpenAPI/JSON Schema for the forecast data structures.
+      responses:
+        '200':
+          description: Schema document
+          content:
+            application/json:
+              schema:
+                type: object
+  /locations:
+    get:
+      tags:
+        - metadata
+      operationId: listLocations
+      summary: List available locations
+      description: Returns a GeoJSON FeatureCollection of pre-defined locations.
+      responses:
+        '200':
+          description: GeoJSON FeatureCollection of locations
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  parameters:
+    lat:
+      name: lat
+      in: query
+      required: true
+      description: Latitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -90
+        maximum: 90
+        example: 60.10
+    lon:
+      name: lon
+      in: query
+      required: true
+      description: Longitude in decimal degrees
+      schema:
+        type: number
+        format: float
+        minimum: -180
+        maximum: 180
+        example: 9.58
+    altitude:
+      name: altitude
+      in: query
+      required: false
+      description: Ground surface elevation in meters above sea level
+      schema:
+        type: integer
+        example: 200
+  schemas:
+    METJSONForecast:
+      title: GeoJSON Forecast Timeseries
+      type: object
+      required:
+        - type
+        - geometry
+        - properties
+      properties:
+        type:
+          type: string
+          enum:
+            - Feature
+          example: Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/Forecast'
+    PointGeometry:
+      title: GeoJSON Point Geometry
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - Point
+        coordinates:
+          type: array
+          minItems: 2
+          maxItems: 3
+          items:
+            type: number
+          description: '[longitude, latitude, altitude]. All values in decimal degrees / meters.'
+          example: [9.58, 60.10, 200]
+    Forecast:
+      title: Forecast Timeseries
+      type: object
+      required:
+        - meta
+        - timeseries
+      properties:
+        meta:
+          type: object
+          required:
+            - updated_at
+            - units
+          properties:
+            updated_at:
+              type: string
+              format: date-time
+              description: Timestamp when this forecast was last updated
+              example: '2024-01-15T06:00:00Z'
+            units:
+              $ref: '#/components/schemas/ForecastUnits'
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeStep'
+    ForecastTimeStep:
+      title: Forecast Time Step
+      type: object
+      required:
+        - time
+        - data
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: 'ISO 8601 timestamp for which these forecast values are valid'
+          example: '2024-01-15T07:00:00Z'
+        data:
+          type: object
+          description: Forecast data for this time step
+          properties:
+            instant:
+              type: object
+              description: Parameters valid at this exact point in time
+              properties:
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+            next_1_hours:
+              type: object
+              description: Parameters with validity over the next 1 hour
+              properties:
+                summary:
+                  $ref: '#/components/schemas/ForecastSummary'
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+            next_6_hours:
+              type: object
+              description: Parameters with validity over the next 6 hours
+              properties:
+                summary:
+                  $ref: '#/components/schemas/ForecastSummary'
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+            next_12_hours:
+              type: object
+              description: Parameters with validity over the next 12 hours
+              properties:
+                summary:
+                  $ref: '#/components/schemas/ForecastSummary'
+                details:
+                  $ref: '#/components/schemas/ForecastData'
+    ForecastData:
+      type: object
+      description: >-
+        Map of weather parameter names to their float values. Common parameters
+        include air_temperature (celsius), wind_speed (m/s),
+        wind_from_direction (degrees), precipitation_amount (mm),
+        relative_humidity (%), cloud_area_fraction (%), and
+        ultraviolet_index_clear_sky.
+      additionalProperties:
+        type: number
+    ForecastSummary:
+      type: object
+      description: Summary of weather conditions for a time period
+      required:
+        - symbol_code
+      properties:
+        symbol_code:
+          $ref: '#/components/schemas/WeatherSymbol'
+        symbol_confidence:
+          $ref: '#/components/schemas/SymbolConfidence'
+    ForecastUnits:
+      type: object
+      description: Map of parameter names to their unit strings
+      additionalProperties:
+        type: string
+    WeatherSymbol:
+      type: string
+      description: >-
+        Identifier summarizing the weather condition for a time period.
+        See https://api.met.no/weatherapi/weathericon/2.0/ for icon images.
+      example: clearsky_day
+      enum:
+        - clearsky_day
+        - clearsky_night
+        - clearsky_polartwilight
+        - fair_day
+        - fair_night
+        - fair_polartwilight
+        - partlycloudy_day
+        - partlycloudy_night
+        - partlycloudy_polartwilight
+        - cloudy
+        - fog
+        - lightrain
+        - rain
+        - heavyrain
+        - lightrainandthunder
+        - rainandthunder
+        - heavyrainandthunder
+        - lightsnow
+        - snow
+        - heavysnow
+        - lightsnowandthunder
+        - snowandthunder
+        - heavysnowandthunder
+        - lightsleet
+        - sleet
+        - heavysleet
+        - lightsleetandthunder
+        - sleetandthunder
+        - heavysleetandthunder
+        - lightrainshowers_day
+        - lightrainshowers_night
+        - lightrainshowers_polartwilight
+        - rainshowers_day
+        - rainshowers_night
+        - rainshowers_polartwilight
+        - heavyrainshowers_day
+        - heavyrainshowers_night
+        - heavyrainshowers_polartwilight
+        - lightrainshowersandthunder_day
+        - lightrainshowersandthunder_night
+        - lightrainshowersandthunder_polartwilight
+        - rainshowersandthunder_day
+        - rainshowersandthunder_night
+        - rainshowersandthunder_polartwilight
+        - heavyrainshowersandthunder_day
+        - heavyrainshowersandthunder_night
+        - heavyrainshowersandthunder_polartwilight
+        - lightsnowshowers_day
+        - lightsnowshowers_night
+        - lightsnowshowers_polartwilight
+        - snowshowers_day
+        - snowshowers_night
+        - snowshowers_polartwilight
+        - heavysnowshowers_day
+        - heavysnowshowers_night
+        - heavysnowshowers_polartwilight
+        - lightssnowshowersandthunder_day
+        - lightssnowshowersandthunder_night
+        - lightssnowshowersandthunder_polartwilight
+        - snowshowersandthunder_day
+        - snowshowersandthunder_night
+        - snowshowersandthunder_polartwilight
+        - heavysnowshowersandthunder_day
+        - heavysnowshowersandthunder_night
+        - heavysnowshowersandthunder_polartwilight
+        - lightsleetshowers_day
+        - lightsleetshowers_night
+        - lightsleetshowers_polartwilight
+        - sleetshowers_day
+        - sleetshowers_night
+        - sleetshowers_polartwilight
+        - heavysleetshowers_day
+        - heavysleetshowers_night
+        - heavysleetshowers_polartwilight
+        - lightssleetshowersandthunder_day
+        - lightssleetshowersandthunder_night
+        - lightssleetshowersandthunder_polartwilight
+        - sleetshowersandthunder_day
+        - sleetshowersandthunder_night
+        - sleetshowersandthunder_polartwilight
+        - heavysleetshowersandthunder_day
+        - heavysleetshowersandthunder_night
+        - heavysleetshowersandthunder_polartwilight
+    SymbolConfidence:
+      type: string
+      description: Estimate of certainty for a weather symbol
+      enum:
+        - certain
+        - somewhat certain
+        - uncertain
