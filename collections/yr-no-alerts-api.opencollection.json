@@ -1,0 +1,252 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Locationforecast alerts API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "alerts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get active weather alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/current",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Output language"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "Filter by weather warning event type"
+              },
+              {
+                "name": "geographicDomain",
+                "value": "",
+                "type": "query",
+                "description": "Filter by geographic domain"
+              },
+              {
+                "name": "county",
+                "value": "",
+                "type": "query",
+                "description": "Two-digit Norwegian county number (land alerts only)"
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude for coordinate-based geographic search"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "Longitude for coordinate-based geographic search"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort RSS result items by field"
+              },
+              {
+                "name": "cap",
+                "value": "",
+                "type": "query",
+                "description": "CAP identifier to retrieve a specific CAP XML message"
+              }
+            ]
+          },
+          "docs": "Returns all currently active weather alerts and warnings. Supports filtering by event type, geographic domain, county, and coordinates."
+        },
+        {
+          "info": {
+            "name": "Get all alerts from the last 30 days",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/all",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Output language"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "Filter by weather warning event type"
+              },
+              {
+                "name": "geographicDomain",
+                "value": "",
+                "type": "query",
+                "description": "Filter by geographic domain"
+              },
+              {
+                "name": "county",
+                "value": "",
+                "type": "query",
+                "description": "Two-digit Norwegian county number (land alerts only)"
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude for coordinate-based geographic search"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "Longitude for coordinate-based geographic search"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort RSS result items by field"
+              },
+              {
+                "name": "cap",
+                "value": "",
+                "type": "query",
+                "description": "CAP identifier to retrieve a specific CAP XML message"
+              }
+            ]
+          },
+          "docs": "Returns both active and inactive weather alerts from the last 30 days. Useful for reviewing recent alert history."
+        },
+        {
+          "info": {
+            "name": "Get archived historical alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/archive",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Output language"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "Filter by weather warning event type"
+              },
+              {
+                "name": "geographicDomain",
+                "value": "",
+                "type": "query",
+                "description": "Filter by geographic domain"
+              },
+              {
+                "name": "county",
+                "value": "",
+                "type": "query",
+                "description": "Two-digit Norwegian county number (land alerts only)"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Archive period in YYYY-MM format"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Specific archive date in YYYY-MM-DD format"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort RSS result items by field"
+              }
+            ]
+          },
+          "docs": "Retrieve archived alerts by month or specific date. Historical data available from January 2019 onwards. Filter heavily to avoid timeouts on large result sets, especially for GeoJSON format."
+        },
+        {
+          "info": {
+            "name": "Get active test alerts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/test",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Output language"
+              }
+            ]
+          },
+          "docs": "Returns currently active test warning alerts for development and testing."
+        },
+        {
+          "info": {
+            "name": "Get all test alerts from the last 30 days",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/test_all",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Output language"
+              }
+            ]
+          },
+          "docs": "Returns all test warning alerts from the last 30 days."
+        },
+        {
+          "info": {
+            "name": "Get example alerts for development",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/example",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Output language"
+              }
+            ]
+          },
+          "docs": "Returns sample alert messages that expire in 2034, intended for development and integration testing."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

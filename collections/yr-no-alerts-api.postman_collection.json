@@ -1,0 +1,1998 @@
+{
+  "item": [
+    {
+      "id": "368b70f8-f80a-40b5-9dc2-29f26a805bba",
+      "name": "alerts",
+      "description": {
+        "content": "Weather alert endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bc21c26b-cb2c-4958-a8d1-4367cc49f0cf",
+          "name": "Get active weather alerts",
+          "request": {
+            "name": "Get active weather alerts",
+            "description": {
+              "content": "Returns all currently active weather alerts and warnings. Supports filtering by event type, geographic domain, county, and coordinates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "current"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Output language"
+                },
+                {
+                  "disabled": false,
+                  "key": "event",
+                  "value": "<string>",
+                  "description": "Filter by weather warning event type"
+                },
+                {
+                  "disabled": false,
+                  "key": "geographicDomain",
+                  "value": "<string>",
+                  "description": "Filter by geographic domain"
+                },
+                {
+                  "disabled": false,
+                  "key": "county",
+                  "value": "<string>",
+                  "description": "Two-digit Norwegian county number (land alerts only)"
+                },
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "Latitude for coordinate-based geographic search"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "Longitude for coordinate-based geographic search"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort RSS result items by field"
+                },
+                {
+                  "disabled": false,
+                  "key": "cap",
+                  "value": "<string>",
+                  "description": "CAP identifier to retrieve a specific CAP XML message"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "17fd90b9-cf7d-440f-9dee-5d18ad9cfd39",
+              "name": "Active alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Minor\",\n        \"certainty\": \"Unlikely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"2014-05-18T12:24:07.609Z\",\n        \"expires\": \"2022-07-11T15:24:41.624Z\",\n        \"published\": \"2008-01-29T05:43:01.979Z\",\n        \"msgType\": \"Update\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"land\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://roykhaqEqjspirydEGrwzJyNSFDLAM.sovPcDP7uhdOUtv71ux2G\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://kbLOs.ngwffs.JiUrS7R7hmf,dmUqln+pYh+Qb-KeUM-VMUch+jwZdwCg-uihRxkh08au\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Moderate\",\n        \"certainty\": \"Possible\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1957-03-31T10:23:02.285Z\",\n        \"expires\": \"2025-01-27T04:56:15.451Z\",\n        \"published\": \"1962-12-29T23:12:52.347Z\",\n        \"msgType\": \"Cancel\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"land\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"https://FOEyzepLIHYieWLrtdctJVrfNjEQxctQ.qplrbm7f6I.gt,x70q9vuLyZWsxVIpw,Vpv5artFN2X1jlVuz-UbrVkMuqLTGW6iuTVDfUnuomf.Y\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"https://JNCeAKJBWZNXZZuwSIjhzNKl.dsqegFd.-g.qBQuQ0hA3\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "688b8adb-16be-4381-acfc-87374a2e46ff",
+              "name": "No Content - no active alerts matching criteria",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2dadd508-77ce-4f40-a863-c0e52146dc37",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0d5b6f26-2fd1-4621-8b4e-aa120a60eefe",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6e22a07a-64e3-4788-9b92-17bf87fff391",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a5f5e707-7137-4bfc-8f6a-a7da95d48298",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8f8dc71b-a631-40d7-9927-4f40e903cce9",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ea5c0ef3-9a09-49e8-bc20-aeaf21bf72a2",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "daa76af0-bf45-46bb-a731-3d25946ef0c8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed656f27-8860-46ca-81a4-f8c6f83ed2d7",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "92f866f7-416c-4656-b728-b2142251f415",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ffc0a544-67d8-422b-848d-f2d97886e676",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e7078ff-409f-4c70-a309-98f5aa3e6fff",
+          "name": "Get all alerts from the last 30 days",
+          "request": {
+            "name": "Get all alerts from the last 30 days",
+            "description": {
+              "content": "Returns both active and inactive weather alerts from the last 30 days. Useful for reviewing recent alert history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Output language"
+                },
+                {
+                  "disabled": false,
+                  "key": "event",
+                  "value": "<string>",
+                  "description": "Filter by weather warning event type"
+                },
+                {
+                  "disabled": false,
+                  "key": "geographicDomain",
+                  "value": "<string>",
+                  "description": "Filter by geographic domain"
+                },
+                {
+                  "disabled": false,
+                  "key": "county",
+                  "value": "<string>",
+                  "description": "Two-digit Norwegian county number (land alerts only)"
+                },
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "Latitude for coordinate-based geographic search"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "Longitude for coordinate-based geographic search"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort RSS result items by field"
+                },
+                {
+                  "disabled": false,
+                  "key": "cap",
+                  "value": "<string>",
+                  "description": "CAP identifier to retrieve a specific CAP XML message"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6956633-b7fb-4eea-a326-2bebf5328144",
+              "name": "All recent alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Moderate\",\n        \"certainty\": \"Unlikely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1980-02-01T11:03:57.692Z\",\n        \"expires\": \"1977-01-24T07:19:04.876Z\",\n        \"published\": \"1973-10-02T18:12:13.183Z\",\n        \"msgType\": \"Update\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"marine\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"https://kAFfBHBURXtxgoznznNMBOENYCqKAWOT.gqwFrwC2eUBAbMnMa5ZLekHAP2EPROrAWPf0zEw,9B-xOg,RX,+xmc5+TdE3ZL1fHT1FmOH\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://uUcqVDjZrMbfyNDFWPmag.qprVPYAl.kRf9R\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Severe\",\n        \"certainty\": \"Likely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1993-04-06T23:56:56.117Z\",\n        \"expires\": \"2006-12-08T21:36:23.750Z\",\n        \"published\": \"2013-03-22T19:35:13.921Z\",\n        \"msgType\": \"Alert\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"land\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://WYZSgs.ssgsjPjpTpo+prQm48rW7cHkL2yh\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://lvfcpZhJEcBhwccxTvagwkpdUOnSB.kbVVrDhKwqJIRBrHhGorYuxWNRzdvafHbFIZMgtcTOFRpYBZTcFy2HFHJyhVlUTGjjz7BRZSl+P2iCO\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fa88a8f-642f-4f24-a15c-50774ca2152e",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a461f530-da7d-4c30-a2f9-c62152932019",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "37d046fc-db03-4f8c-8b68-6e98ecc91275",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3b7ae605-273b-4e3a-890e-be785e6b4bf8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cap",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86e999fc-5358-4be0-9ce8-5295c8fcc247",
+          "name": "Get archived historical alerts",
+          "request": {
+            "name": "Get archived historical alerts",
+            "description": {
+              "content": "Retrieve archived alerts by month or specific date. Historical data available from January 2019 onwards. Filter heavily to avoid timeouts on large result sets, especially for GeoJSON format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Output language"
+                },
+                {
+                  "disabled": false,
+                  "key": "event",
+                  "value": "<string>",
+                  "description": "Filter by weather warning event type"
+                },
+                {
+                  "disabled": false,
+                  "key": "geographicDomain",
+                  "value": "<string>",
+                  "description": "Filter by geographic domain"
+                },
+                {
+                  "disabled": false,
+                  "key": "county",
+                  "value": "<string>",
+                  "description": "Two-digit Norwegian county number (land alerts only)"
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "Archive period in YYYY-MM format"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "Specific archive date in YYYY-MM-DD format"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort RSS result items by field"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4f1c697-6cb4-4847-838c-97de59d5c09b",
+              "name": "Archived alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "period",
+                      "value": "2024-01"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-01-15"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Moderate\",\n        \"certainty\": \"Unlikely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1980-02-01T11:03:57.692Z\",\n        \"expires\": \"1977-01-24T07:19:04.876Z\",\n        \"published\": \"1973-10-02T18:12:13.183Z\",\n        \"msgType\": \"Update\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"marine\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"https://kAFfBHBURXtxgoznznNMBOENYCqKAWOT.gqwFrwC2eUBAbMnMa5ZLekHAP2EPROrAWPf0zEw,9B-xOg,RX,+xmc5+TdE3ZL1fHT1FmOH\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://uUcqVDjZrMbfyNDFWPmag.qprVPYAl.kRf9R\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Severe\",\n        \"certainty\": \"Likely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1993-04-06T23:56:56.117Z\",\n        \"expires\": \"2006-12-08T21:36:23.750Z\",\n        \"published\": \"2013-03-22T19:35:13.921Z\",\n        \"msgType\": \"Alert\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"land\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://WYZSgs.ssgsjPjpTpo+prQm48rW7cHkL2yh\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://lvfcpZhJEcBhwccxTvagwkpdUOnSB.kbVVrDhKwqJIRBrHhGorYuxWNRzdvafHbFIZMgtcTOFRpYBZTcFy2HFHJyhVlUTGjjz7BRZSl+P2iCO\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d62709a9-a033-431b-8dbd-ba18f4efeda8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "period",
+                      "value": "2024-01"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-01-15"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a1b1f29-dc53-4a72-8897-0bb6a2835fa9",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "period",
+                      "value": "2024-01"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-01-15"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "660b5880-3054-4983-907e-3c920c0eeec2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "event",
+                      "value": "wind"
+                    },
+                    {
+                      "key": "geographicDomain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "county",
+                      "value": "11"
+                    },
+                    {
+                      "key": "period",
+                      "value": "2024-01"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-01-15"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6bcd4a11-f39e-46e9-a27d-274b8f440458",
+          "name": "Get active test alerts",
+          "request": {
+            "name": "Get active test alerts",
+            "description": {
+              "content": "Returns currently active test warning alerts for development and testing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Output language"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b933c792-e958-47a3-bf32-729d015d5b62",
+              "name": "Test alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Moderate\",\n        \"certainty\": \"Unlikely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1980-02-01T11:03:57.692Z\",\n        \"expires\": \"1977-01-24T07:19:04.876Z\",\n        \"published\": \"1973-10-02T18:12:13.183Z\",\n        \"msgType\": \"Update\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"marine\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"https://kAFfBHBURXtxgoznznNMBOENYCqKAWOT.gqwFrwC2eUBAbMnMa5ZLekHAP2EPROrAWPf0zEw,9B-xOg,RX,+xmc5+TdE3ZL1fHT1FmOH\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://uUcqVDjZrMbfyNDFWPmag.qprVPYAl.kRf9R\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Severe\",\n        \"certainty\": \"Likely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1993-04-06T23:56:56.117Z\",\n        \"expires\": \"2006-12-08T21:36:23.750Z\",\n        \"published\": \"2013-03-22T19:35:13.921Z\",\n        \"msgType\": \"Alert\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"land\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://WYZSgs.ssgsjPjpTpo+prQm48rW7cHkL2yh\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://lvfcpZhJEcBhwccxTvagwkpdUOnSB.kbVVrDhKwqJIRBrHhGorYuxWNRzdvafHbFIZMgtcTOFRpYBZTcFy2HFHJyhVlUTGjjz7BRZSl+P2iCO\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48d8f56c-b9d7-428b-8a07-ed87ce7b6d5b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "717ac605-cf71-46ab-9e5a-d883aa97bedb",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ea7b84e-050c-46b2-a995-ae66d98a9ad4",
+          "name": "Get all test alerts from the last 30 days",
+          "request": {
+            "name": "Get all test alerts from the last 30 days",
+            "description": {
+              "content": "Returns all test warning alerts from the last 30 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "test_all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Output language"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7814690d-bf00-4f54-9dcb-aff4f7af10a8",
+              "name": "All test alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test_all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Moderate\",\n        \"certainty\": \"Unlikely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1980-02-01T11:03:57.692Z\",\n        \"expires\": \"1977-01-24T07:19:04.876Z\",\n        \"published\": \"1973-10-02T18:12:13.183Z\",\n        \"msgType\": \"Update\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"marine\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"https://kAFfBHBURXtxgoznznNMBOENYCqKAWOT.gqwFrwC2eUBAbMnMa5ZLekHAP2EPROrAWPf0zEw,9B-xOg,RX,+xmc5+TdE3ZL1fHT1FmOH\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://uUcqVDjZrMbfyNDFWPmag.qprVPYAl.kRf9R\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Severe\",\n        \"certainty\": \"Likely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1993-04-06T23:56:56.117Z\",\n        \"expires\": \"2006-12-08T21:36:23.750Z\",\n        \"published\": \"2013-03-22T19:35:13.921Z\",\n        \"msgType\": \"Alert\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"land\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://WYZSgs.ssgsjPjpTpo+prQm48rW7cHkL2yh\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://lvfcpZhJEcBhwccxTvagwkpdUOnSB.kbVVrDhKwqJIRBrHhGorYuxWNRzdvafHbFIZMgtcTOFRpYBZTcFy2HFHJyhVlUTGjjz7BRZSl+P2iCO\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26e1e433-9453-4997-8c74-c91ceec7d741",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test_all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ed51b6b-5899-4f98-aa11-f9059f418a87",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "test_all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db36d5fa-4613-4d48-960d-ed074543d070",
+          "name": "Get example alerts for development",
+          "request": {
+            "name": "Get example alerts for development",
+            "description": {
+              "content": "Returns sample alert messages that expire in 2034, intended for development and integration testing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "example"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Output language"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a69e5fd8-d8e4-4d4b-9b95-7b8208312730",
+              "name": "Example alerts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Moderate\",\n        \"certainty\": \"Unlikely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1980-02-01T11:03:57.692Z\",\n        \"expires\": \"1977-01-24T07:19:04.876Z\",\n        \"published\": \"1973-10-02T18:12:13.183Z\",\n        \"msgType\": \"Update\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"marine\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"https://kAFfBHBURXtxgoznznNMBOENYCqKAWOT.gqwFrwC2eUBAbMnMa5ZLekHAP2EPROrAWPf0zEw,9B-xOg,RX,+xmc5+TdE3ZL1fHT1FmOH\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://uUcqVDjZrMbfyNDFWPmag.qprVPYAl.kRf9R\"\n          }\n        ]\n      }\n    },\n    {\n      \"type\": \"Feature\",\n      \"geometry\": {},\n      \"properties\": {\n        \"id\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"event\": \"string\",\n        \"eventAwarenessName\": \"string\",\n        \"severity\": \"Severe\",\n        \"certainty\": \"Likely\",\n        \"awareness_level\": \"string\",\n        \"onset\": \"1993-04-06T23:56:56.117Z\",\n        \"expires\": \"2006-12-08T21:36:23.750Z\",\n        \"published\": \"2013-03-22T19:35:13.921Z\",\n        \"msgType\": \"Alert\",\n        \"county\": [\n          \"string\",\n          \"string\"\n        ],\n        \"geographicDomain\": \"land\",\n        \"incidentName\": \"string\",\n        \"resources\": [\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://WYZSgs.ssgsjPjpTpo+prQm48rW7cHkL2yh\"\n          },\n          {\n            \"description\": \"string\",\n            \"mimeType\": \"string\",\n            \"uri\": \"http://lvfcpZhJEcBhwccxTvagwkpdUOnSB.kbVVrDhKwqJIRBrHhGorYuxWNRzdvafHbFIZMgtcTOFRpYBZTcFy2HFHJyhVlUTGjjz7BRZSl+P2iCO\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f700d5c4-a87d-459a-82c0-db06b99d8bf8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.met.no/weatherapi/locationforecast/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b3d704ac-b869-481b-97b9-169104eea21a",
+    "name": "Locationforecast alerts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Weather forecasts for any location on Earth up to nine days ahead, returning temperature, wind, precipitation, cloud cover, humidity, and more. Available in compact JSON, complete JSON with probabilistic percentiles, and legacy XML formats. Data is open under CC BY 4.0 and requires only a User-Agent header.\n\nContact Support:\n Name: Developer Support\n Email: weatherapi-adm@met.no",
+      "type": "text/plain"
+    }
+  }
+}

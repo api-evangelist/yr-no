@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Locationforecast alerts metadata API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Operational status of the forecast model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/status"
+          },
+          "docs": "Returns the current operational status of the Locationforecast model."
+        },
+        {
+          "info": {
+            "name": "RSS feed of product changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/changelog"
+          },
+          "docs": "Returns an RSS feed listing changes and updates to this product."
+        },
+        {
+          "info": {
+            "name": "Health check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/healthz"
+          },
+          "docs": "Check the health status of the Locationforecast service."
+        },
+        {
+          "info": {
+            "name": "OpenAPI schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/schema"
+          },
+          "docs": "Returns the OpenAPI/JSON Schema for the forecast data structures."
+        },
+        {
+          "info": {
+            "name": "List available locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/locations"
+          },
+          "docs": "Returns a GeoJSON FeatureCollection of pre-defined locations."
+        },
+        {
+          "info": {
+            "name": "List allowed parameter values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/values"
+          },
+          "docs": "Returns allowed values for query parameters such as event types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

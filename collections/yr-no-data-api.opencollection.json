@@ -1,0 +1,232 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Locationforecast alerts data API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Compact weather forecast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/compact",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude in decimal degrees"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "Longitude in decimal degrees"
+              },
+              {
+                "name": "altitude",
+                "value": "",
+                "type": "query",
+                "description": "Ground surface elevation in meters above sea level"
+              }
+            ]
+          },
+          "docs": "Streamlined weather forecast for a given location containing the most frequently used parameters. Returns a GeoJSON Feature with a timeseries of forecast data steps."
+        },
+        {
+          "info": {
+            "name": "Complete weather forecast with percentiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/complete",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude in decimal degrees"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "Longitude in decimal degrees"
+              },
+              {
+                "name": "altitude",
+                "value": "",
+                "type": "query",
+                "description": "Ground surface elevation in meters above sea level"
+              }
+            ]
+          },
+          "docs": "Full weather forecast for a given location containing all available parameters including probabilistic percentile values (10th and 90th percentile) for temperature and wind speed."
+        },
+        {
+          "info": {
+            "name": "Classic XML weather forecast (legacy)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/classic",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude in decimal degrees"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "Longitude in decimal degrees"
+              },
+              {
+                "name": "altitude",
+                "value": "",
+                "type": "query",
+                "description": "Ground surface elevation in meters above sea level"
+              }
+            ]
+          },
+          "docs": "Legacy XML format forecast matching the old version 1.9 structure. Deprecated but maintained for backward compatibility."
+        },
+        {
+          "info": {
+            "name": "Radar coverage area",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/coverage"
+          },
+          "docs": "Returns the radar coverage area as a ZIP file containing geographic boundary data indicating where nowcast data is available."
+        },
+        {
+          "info": {
+            "name": "Operational status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/status"
+          },
+          "docs": "Returns the current operational status of the Nowcast service."
+        },
+        {
+          "info": {
+            "name": "Ocean forecast in MOX XML format",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/mox",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude in decimal degrees (must be a marine location)"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "Longitude in decimal degrees (must be a marine location)"
+              }
+            ]
+          },
+          "docs": "Returns ocean forecast data in legacy MOX XML format for a specific marine point in Northwestern Europe."
+        },
+        {
+          "info": {
+            "name": "Get sun rise, set, and transit times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/sun",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude in decimal degrees"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "Longitude in decimal degrees"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date in YYYY-MM-DD format in local time (not UTC). Defaults to today if not provided."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Timezone offset string in the form +HH:MM or -HH:MM (e.g., +02:00 or -04:30). Used to interpret the date parameter and return times in local time."
+              }
+            ]
+          },
+          "docs": "Calculate sun rise, set, transit (solar noon), and twilight events for a specific location and date. Twilight times include civil, nautical, and astronomical twilight. All times are returned in ISO 8601 format."
+        },
+        {
+          "info": {
+            "name": "Get moon rise, set, and transit times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.met.no/weatherapi/locationforecast/2.0/moon",
+            "params": [
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query",
+                "description": "Latitude in decimal degrees"
+              },
+              {
+                "name": "lon",
+                "value": "",
+                "type": "query",
+                "description": "Longitude in decimal degrees"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date in YYYY-MM-DD format in local time (not UTC). Defaults to today if not provided."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Timezone offset string in the form +HH:MM or -HH:MM (e.g., +02:00 or -04:30). Used to interpret the date parameter and return times in local time."
+              }
+            ]
+          },
+          "docs": "Calculate moon rise, set, transit, and phase events for a specific location and date. Includes moon phase information and illumination fraction. All times are returned in ISO 8601 format."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

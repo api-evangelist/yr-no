@@ -1,0 +1,3339 @@
+{
+  "item": [
+    {
+      "id": "bbfdbf27-e647-41aa-85c8-7d8e82aad592",
+      "name": "data",
+      "description": {
+        "content": "Forecast data endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7c31618a-75f4-4bd6-aaac-79e05545f3de",
+          "name": "Compact weather forecast",
+          "request": {
+            "name": "Compact weather forecast",
+            "description": {
+              "content": "Streamlined weather forecast for a given location containing the most frequently used parameters. Returns a GeoJSON Feature with a timeseries of forecast data steps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "compact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "(Required) Latitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "(Required) Longitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "altitude",
+                  "value": "<integer>",
+                  "description": "Ground surface elevation in meters above sea level"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23afa81e-9c39-442f-8630-89be2e52f0de",
+              "name": "Successful forecast response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"Feature\",\n  \"geometry\": {\n    \"type\": \"Point\",\n    \"coordinates\": [\n      9.58,\n      60.1,\n      200\n    ]\n  },\n  \"properties\": {\n    \"meta\": {\n      \"updated_at\": \"2024-01-15T06:00:00Z\",\n      \"units\": {\n        \"air_temperature\": \"celsius\",\n        \"precipitation_amount\": \"mm\",\n        \"wind_speed\": \"m/s\"\n      }\n    },\n    \"timeseries\": [\n      {\n        \"time\": \"2024-01-15T07:00:00Z\",\n        \"data\": {\n          \"instant\": {\n            \"details\": {\n              \"air_temperature\": 2.5,\n              \"wind_speed\": 4.2,\n              \"wind_from_direction\": 180\n            }\n          },\n          \"next_1_hours\": {\n            \"summary\": {\n              \"symbol_code\": \"partlycloudy_day\"\n            },\n            \"details\": {\n              \"precipitation_amount\": 0\n            }\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad0c792c-3f6d-4650-80c9-573fe7e1604d",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a5e8f57-67ff-43c3-b549-8b9bd70fe4f8",
+              "name": "Bad Request - missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0fe1b55b-143b-441b-b78c-e336f297ee0a",
+              "name": "Unauthorized - missing or invalid User-Agent",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f94d4f3b-717c-44fc-99e5-d749bc0ca61c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed1a407b-8ab3-48bb-8245-385d92b950b8",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "88572586-6138-455b-b0ca-0c94a7eca385",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "813ae5ad-46d4-472c-9e79-8fdac029339e",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9e6fba35-6e5d-4724-a7d0-be2f646ac229",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "71595b0d-5929-41c1-994f-5fd2003916f6",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1f7dd139-69b7-48bf-bda0-9d9714efa0fa",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a836cba2-e02f-41a1-87f4-40c82b0512ac",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a2afe96-d5d8-4db4-91a4-c0071bca3581",
+          "name": "Complete weather forecast with percentiles",
+          "request": {
+            "name": "Complete weather forecast with percentiles",
+            "description": {
+              "content": "Full weather forecast for a given location containing all available parameters including probabilistic percentile values (10th and 90th percentile) for temperature and wind speed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "(Required) Latitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "(Required) Longitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "altitude",
+                  "value": "<integer>",
+                  "description": "Ground surface elevation in meters above sea level"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json;charset=UTF-8"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "18773cfc-c611-4d41-8124-bd0830e92470",
+              "name": "Successful forecast response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json;charset=UTF-8"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json;charset=UTF-8"
+                }
+              ],
+              "body": "{\n  \"type\": \"Feature\",\n  \"geometry\": {\n    \"type\": \"Point\",\n    \"coordinates\": [\n      9.58,\n      60.1,\n      200\n    ]\n  },\n  \"properties\": {\n    \"meta\": {\n      \"updated_at\": \"2024-01-15T06:00:00Z\",\n      \"units\": {\n        \"key_0\": \"string\"\n      }\n    },\n    \"timeseries\": [\n      {\n        \"time\": \"2024-01-15T07:00:00Z\",\n        \"data\": {\n          \"instant\": {\n            \"details\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"next_1_hours\": {\n            \"summary\": {\n              \"symbol_code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"symbol_confidence\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"details\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"next_6_hours\": {\n            \"summary\": {\n              \"symbol_code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"symbol_confidence\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"details\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"next_12_hours\": {\n            \"summary\": {\n              \"symbol_code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"symbol_confidence\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"details\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      },\n      {\n        \"time\": \"2024-01-15T07:00:00Z\",\n        \"data\": {\n          \"instant\": {\n            \"details\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"next_1_hours\": {\n            \"summary\": {\n              \"symbol_code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"symbol_confidence\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"details\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"next_6_hours\": {\n            \"summary\": {\n              \"symbol_code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"symbol_confidence\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"details\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          \"next_12_hours\": {\n            \"summary\": {\n              \"symbol_code\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"symbol_confidence\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"details\": {\n              \"key_0\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_1\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"key_2\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75f3a6b5-e56d-4c1c-92c7-6c516eeaec0c",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "81e4e117-981d-427a-b036-a06e5347819f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fe0074f9-553e-435d-8d3f-99aa2b1a1015",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35f8b734-7425-4a36-aeee-d8bc7324d30c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f4d7950d-962e-46a5-9f69-bb2f2103d97a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4d7866ae-f6a1-49a6-83ca-59e8a206b427",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1ec98720-9130-4ee1-8bd7-eb1b269c41c3",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8111e35f-dbc1-4faf-ab3c-46c93a386b10",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2665b3ab-69c3-4b42-8a05-b399915adb42",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6fe5d289-0ba8-49ea-b645-b2bef69e47bf",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a6b2dff-41e1-45bc-b97d-1d20b81c46fe",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "636157d3-c5ca-4bce-a0fe-87026f73ef0e",
+          "name": "Classic XML weather forecast (legacy)",
+          "request": {
+            "name": "Classic XML weather forecast (legacy)",
+            "description": {
+              "content": "Legacy XML format forecast matching the old version 1.9 structure. Deprecated but maintained for backward compatibility.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "classic"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "(Required) Latitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "(Required) Longitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "altitude",
+                  "value": "<integer>",
+                  "description": "Ground surface elevation in meters above sea level"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eeafb8b8-9ff8-4dcd-a94c-f1ec4c8ebda7",
+              "name": "Successful XML forecast response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "2604ecb6-d1b8-4d40-a205-76ff9ddc3fa5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "38ad9d4c-160e-4d3e-bf32-815e4d7392d5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "881c615c-d16c-4632-b869-7a77cf1d0a0d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3dc7febc-ac4f-4c78-91c8-0f9f7a723e75",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a3bfd6d0-603f-4e05-8275-6a53526c503e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f78c9e84-0804-40ee-8855-8fb442309f2c",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "64a77cb2-d028-4aa3-892b-4645668ad037",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "classic"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60.1"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "9.58"
+                    },
+                    {
+                      "key": "altitude",
+                      "value": "200"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0139898-8d56-45d0-9e59-02938407d6ef",
+          "name": "Radar coverage area",
+          "request": {
+            "name": "Radar coverage area",
+            "description": {
+              "content": "Returns the radar coverage area as a ZIP file containing geographic boundary data indicating where nowcast data is available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "coverage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/zip"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4937abbc-1f4e-463c-bad4-d5f907ccde09",
+              "name": "Coverage area data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/zip"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/zip"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d5982252-b2e7-4d24-b5bd-dec6a0984493",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66b6f477-8ff1-4cfd-a2d4-67d0f84cedc2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coverage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ece9c44-ca42-49d5-872b-5ef06e109600",
+          "name": "Operational status",
+          "request": {
+            "name": "Operational status",
+            "description": {
+              "content": "Returns the current operational status of the Nowcast service.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "92fac4b8-83e0-4d8c-81b3-ac14ff8305d0",
+              "name": "Status information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e1f4eeb-3899-44f9-9fd6-31318b963603",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57db1363-84f3-43c2-a4e6-fed16b2b35f7",
+          "name": "Ocean forecast in MOX XML format",
+          "request": {
+            "name": "Ocean forecast in MOX XML format",
+            "description": {
+              "content": "Returns ocean forecast data in legacy MOX XML format for a specific marine point in Northwestern Europe.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mox"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "(Required) Latitude in decimal degrees (must be a marine location)"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "(Required) Longitude in decimal degrees (must be a marine location)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c3661027-0494-49d1-997c-c3622edb5ab0",
+              "name": "XML ocean forecast response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "9a91b4e9-be93-45ea-801b-b89441628a41",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac67618d-66d5-405b-91eb-4a489c2a6393",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0c8a5601-2436-41f0-9d92-cf9ba37e5cf2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b4904ab6-6976-4f1b-91a1-eb0899704e26",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "81a86608-141c-4232-b3d1-5ab28ac95930",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "63020ea6-00a1-4319-befb-b2a4c8d96597",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "60"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "5"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d561189-c673-49b3-ad8e-20dc016574f3",
+          "name": "Get sun rise, set, and transit times",
+          "request": {
+            "name": "Get sun rise, set, and transit times",
+            "description": {
+              "content": "Calculate sun rise, set, transit (solar noon), and twilight events for a specific location and date. Twilight times include civil, nautical, and astronomical twilight. All times are returned in ISO 8601 format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sun"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "(Required) Latitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "(Required) Longitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "Date in YYYY-MM-DD format in local time (not UTC). Defaults to today if not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Timezone offset string in the form +HH:MM or -HH:MM (e.g., +02:00 or -04:30). Used to interpret the date parameter and return times in local time."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c66acc4-7278-4b1b-b671-a973b6012478",
+              "name": "Sun event times for the given location and date",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"Feature\",\n  \"geometry\": {\n    \"type\": \"Point\",\n    \"coordinates\": [\n      10.75,\n      59.91\n    ]\n  },\n  \"properties\": {\n    \"body\": \"Sun\",\n    \"sunrise\": {\n      \"time\": \"2024-06-21T03:52:00+02:00\",\n      \"azimuth\": 43.2\n    },\n    \"sunset\": {\n      \"time\": \"2024-06-21T22:04:00+02:00\",\n      \"azimuth\": 317.8\n    },\n    \"solarnoon\": {\n      \"time\": \"2024-06-21T12:58:00+02:00\",\n      \"elevation\": 54.1\n    },\n    \"solarmidnight\": {\n      \"time\": \"2024-06-21T00:58:00+02:00\",\n      \"elevation\": -6.2\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45e9eb90-2f60-4d81-94ac-af83b615a47a",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1bbca58a-c7bf-40ed-a5f6-1e8ca7b454f1",
+              "name": "Bad Request - missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7f412223-8407-41e7-adc5-899e36db6d42",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "68b73e79-2f40-469a-85e6-e29109667b4b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bde0f1c3-d54b-4a29-ab89-7ba12aa83343",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f2498032-92ef-4764-9af7-fd0fce24a4aa",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8324e2d6-20ca-4f9d-af7e-52fdec1d13a1",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e1b1aa81-14aa-42b5-b3b1-ce0130333cb7",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "391bcbb1-b89c-4bfb-b30f-18d3405a063d",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3d7750ec-e3c9-41a8-9e9f-a20ed14d55bc",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7de8c2b9-6ca1-4e08-8499-706aed720728",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sun"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10886b88-82c8-4a9a-bd09-64763da05131",
+          "name": "Get moon rise, set, and transit times",
+          "request": {
+            "name": "Get moon rise, set, and transit times",
+            "description": {
+              "content": "Calculate moon rise, set, transit, and phase events for a specific location and date. Includes moon phase information and illumination fraction. All times are returned in ISO 8601 format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "moon"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<float>",
+                  "description": "(Required) Latitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "lon",
+                  "value": "<float>",
+                  "description": "(Required) Longitude in decimal degrees"
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "Date in YYYY-MM-DD format in local time (not UTC). Defaults to today if not provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Timezone offset string in the form +HH:MM or -HH:MM (e.g., +02:00 or -04:30). Used to interpret the date parameter and return times in local time."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52a6d740-f5a5-4017-80d1-5145bef97f4d",
+              "name": "Moon event times for the given location and date",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"Feature\",\n  \"geometry\": {\n    \"type\": \"Point\",\n    \"coordinates\": [\n      10.75,\n      59.91\n    ]\n  },\n  \"properties\": {\n    \"body\": \"Moon\",\n    \"moonrise\": {\n      \"time\": \"2024-06-21T14:30:00+02:00\",\n      \"azimuth\": 62.4\n    },\n    \"moonset\": {\n      \"time\": \"2024-06-22T01:15:00+02:00\",\n      \"azimuth\": 298.6\n    },\n    \"high_moon\": {\n      \"time\": \"2024-06-21T19:52:00+02:00\",\n      \"elevation\": 40.3\n    },\n    \"phase\": {\n      \"value\": 0.65,\n      \"illumination\": 72.4\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b24e3778-1d64-49fa-b760-8b8064f025d9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2ce1bc4e-2949-46ea-963b-f4eb8ee0d293",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "51bd9f61-7c24-4c55-80bf-63cb8f2fbec2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13510e88-007d-4825-9759-85e4943b0075",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed610174-0c48-46f0-b4bd-57bf7d88886d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3778719a-422c-4fe2-9706-e74282cf8bc1",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "98e258a3-1c04-4b14-854e-78f5ca2de880",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "81d61539-2f49-4287-bb48-5573180c66fd",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "487f0cbb-8f75-4760-acfb-3452c423b4b1",
+              "name": "Bad Gateway",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dffaaf6d-f655-4171-ae1c-559e00292fc2",
+              "name": "Service Unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "79f4e12c-c339-472a-8e56-0a2e681aee31",
+              "name": "Gateway Timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lat",
+                      "value": "59.91"
+                    },
+                    {
+                      "key": "lon",
+                      "value": "10.75"
+                    },
+                    {
+                      "key": "date",
+                      "value": "2024-06-21"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "+02:00"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.met.no/weatherapi/locationforecast/2.0",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6bcbe36c-b50d-4a94-acf5-78bb2720a753",
+    "name": "Locationforecast alerts data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Weather forecasts for any location on Earth up to nine days ahead, returning temperature, wind, precipitation, cloud cover, humidity, and more. Available in compact JSON, complete JSON with probabilistic percentiles, and legacy XML formats. Data is open under CC BY 4.0 and requires only a User-Agent header.\n\nContact Support:\n Name: Developer Support\n Email: weatherapi-adm@met.no",
+      "type": "text/plain"
+    }
+  }
+}
