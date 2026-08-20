@@ -29,6 +29,17 @@ modified: '2026-06-13'
 specificationVersion: '0.23'
 tags:
   - Weather
+  - Forecast
+  - Meteorology
+  - Climate
+  - Norway
+  - Nordic
+  - Open Data
+  - Aviation Weather
+  - Marine Weather
+  - Alerts
+tags_raw:
+  - Weather
   - Forecasts
   - Meteorology
   - Climate
@@ -74,6 +85,8 @@ apis:
   humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
   baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
   tags:
+  - Alerts
+  tags_raw:
   - alerts
   properties:
   - type: OpenAPI
@@ -96,6 +109,8 @@ apis:
   humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
   baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
   tags:
+  - Data
+  tags_raw:
   - data
   properties:
   - type: OpenAPI
@@ -118,6 +133,8 @@ apis:
   humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
   baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
   tags:
+  - Metadata
+  tags_raw:
   - metadata
   properties:
   - type: OpenAPI
