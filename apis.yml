@@ -10,6 +10,18 @@ description: >-
   observation data. All data is open under CC BY 4.0 and requires only a
   User-Agent identification header — no API key or account is needed.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: open
