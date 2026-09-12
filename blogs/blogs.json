@@ -3,10 +3,13 @@
   "feeds": [
     {
       "source": "https://www.linkedin.com/company/met-norway/",
-      "error": "HTTPError"
+      "feed_url": "https://www.linkedin.com/company/met-norway/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-30T22:33:40Z",
+  "fetched": "2026-09-06T19:17:18Z",
   "agent_pulled": "2026-07-04"
 }
