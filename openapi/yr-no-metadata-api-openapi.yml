@@ -1,8 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Locationforecast alerts metadata API
-  description: Weather forecasts for any location on Earth up to nine days ahead, returning temperature, wind, precipitation, cloud cover, humidity, and more. Available in compact JSON, complete JSON with probabilistic percentiles, and legacy XML formats. Data is open under CC BY 4.0 and requires only a User-Agent header.
-  version: '2.0'
+  title: Yr No Metadata API
   contact:
     name: Developer Support
     url: https://developer.yr.no/
@@ -11,17 +9,27 @@ info:
     name: CC BY 4.0
     url: https://creativecommons.org/licenses/by/4.0/
   termsOfService: https://developer.yr.no/doc/TermsOfService/
+  version: '1.0'
+  description: 'Operations tagged metadata across 5 of this provider''s published API definitions: yr-no-locationforecast-openapi.yml, yr-no-metalerts-openapi.yml, yr-no-nowcast-openapi.yml, yr-no-oceanforecast-openapi.yml, yr-no-sunrise-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.met.no/weatherapi/locationforecast/2.0
   description: MET Norway Locationforecast API
+- url: https://api.met.no/weatherapi/metalerts/2.0
+  description: MET Norway MetAlerts API
+- url: https://api.met.no/weatherapi/nowcast/2.0
+  description: MET Norway Nowcast API
+- url: https://api.met.no/weatherapi/oceanforecast/2.0
+  description: MET Norway Oceanforecast API
+- url: https://api.met.no/weatherapi/sunrise/3.0
+  description: MET Norway Sunrise API
 tags:
-- name: metadata
+- name: Metadata
   description: Service metadata endpoints
 paths:
   /status:
     get:
       tags:
-      - metadata
+      - Metadata
       operationId: getForecastStatus
       summary: Operational status of the forecast model
       description: Returns the current operational status of the Locationforecast model.
@@ -37,10 +45,13 @@ paths:
                 type: string
         '500':
           description: Internal Server Error
+    servers:
+    - url: https://api.met.no/weatherapi/locationforecast/2.0
+      description: MET Norway Locationforecast API
   /changelog:
     get:
       tags:
-      - metadata
+      - Metadata
       operationId: getChangelog
       summary: RSS feed of product changes
       description: Returns an RSS feed listing changes and updates to this product.
@@ -51,10 +62,13 @@ paths:
             application/rss+xml:
               schema:
                 type: string
+    servers:
+    - url: https://api.met.no/weatherapi/locationforecast/2.0
+      description: MET Norway Locationforecast API
   /healthz:
     get:
       tags:
-      - metadata
+      - Metadata
       operationId: healthCheck
       summary: Health check
       description: Check the health status of the Locationforecast service.
@@ -65,10 +79,13 @@ paths:
             text/plain:
               schema:
                 type: string
+    servers:
+    - url: https://api.met.no/weatherapi/locationforecast/2.0
+      description: MET Norway Locationforecast API
   /schema:
     get:
       tags:
-      - metadata
+      - Metadata
       operationId: getSchema
       summary: OpenAPI schema
       description: Returns the OpenAPI/JSON Schema for the forecast data structures.
@@ -79,10 +96,13 @@ paths:
             application/json:
               schema:
                 type: object
+    servers:
+    - url: https://api.met.no/weatherapi/locationforecast/2.0
+      description: MET Norway Locationforecast API
   /locations:
     get:
       tags:
-      - metadata
+      - Metadata
       operationId: listLocations
       summary: List available locations
       description: Returns a GeoJSON FeatureCollection of pre-defined locations.
@@ -93,10 +113,13 @@ paths:
             application/json:
               schema:
                 type: object
+    servers:
+    - url: https://api.met.no/weatherapi/locationforecast/2.0
+      description: MET Norway Locationforecast API
   /values:
     get:
       tags:
-      - metadata
+      - Metadata
       operationId: getAlertValues
       summary: List allowed parameter values
       description: Returns allowed values for query parameters such as event types.
@@ -109,6 +132,12 @@ paths:
                 type: object
         '500':
           description: Internal Server Error
-externalDocs:
-  description: Official documentation
-  url: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+    servers:
+    - url: https://api.met.no/weatherapi/metalerts/2.0
+      description: MET Norway MetAlerts API
+x-refined-from:
+- yr-no-locationforecast-openapi.yml
+- yr-no-metalerts-openapi.yml
+- yr-no-nowcast-openapi.yml
+- yr-no-oceanforecast-openapi.yml
+- yr-no-sunrise-openapi.yml

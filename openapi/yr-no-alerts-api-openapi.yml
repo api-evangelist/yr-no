@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Locationforecast alerts API
-  description: Weather forecasts for any location on Earth up to nine days ahead, returning temperature, wind, precipitation, cloud cover, humidity, and more. Available in compact JSON, complete JSON with probabilistic percentiles, and legacy XML formats. Data is open under CC BY 4.0 and requires only a User-Agent header.
+  title: MetAlerts Alerts API
+  description: Weather alerts and warnings issued by the Norwegian Meteorological Institute for Norway and surrounding areas, returned as CAP (Common Alerting Protocol) XML, RSS, or GeoJSON. Supports filtering by event type, severity, geographic domain, and county. Data is open under CC BY 4.0.
   version: '2.0'
   contact:
     name: Developer Support
@@ -12,16 +12,16 @@ info:
     url: https://creativecommons.org/licenses/by/4.0/
   termsOfService: https://developer.yr.no/doc/TermsOfService/
 servers:
-- url: https://api.met.no/weatherapi/locationforecast/2.0
-  description: MET Norway Locationforecast API
+- url: https://api.met.no/weatherapi/metalerts/2.0
+  description: MET Norway MetAlerts API
 tags:
-- name: alerts
+- name: Alerts
   description: Weather alert endpoints
 paths:
   /current:
     get:
       tags:
-      - alerts
+      - Alerts
       operationId: getCurrentAlerts
       summary: Get active weather alerts
       description: Returns all currently active weather alerts and warnings. Supports filtering by event type, geographic domain, county, and coordinates.
@@ -74,7 +74,7 @@ paths:
   /all:
     get:
       tags:
-      - alerts
+      - Alerts
       operationId: getAllAlerts
       summary: Get all alerts from the last 30 days
       description: Returns both active and inactive weather alerts from the last 30 days. Useful for reviewing recent alert history.
@@ -111,7 +111,7 @@ paths:
   /archive:
     get:
       tags:
-      - alerts
+      - Alerts
       operationId: getArchivedAlerts
       summary: Get archived historical alerts
       description: Retrieve archived alerts by month or specific date. Historical data available from January 2019 onwards. Filter heavily to avoid timeouts on large result sets, especially for GeoJSON format.
@@ -159,7 +159,7 @@ paths:
   /test:
     get:
       tags:
-      - alerts
+      - Alerts
       operationId: getTestAlerts
       summary: Get active test alerts
       description: Returns currently active test warning alerts for development and testing.
@@ -185,7 +185,7 @@ paths:
   /test_all:
     get:
       tags:
-      - alerts
+      - Alerts
       operationId: getAllTestAlerts
       summary: Get all test alerts from the last 30 days
       description: Returns all test warning alerts from the last 30 days.
@@ -208,7 +208,7 @@ paths:
   /example:
     get:
       tags:
-      - alerts
+      - Alerts
       operationId: getExampleAlerts
       summary: Get example alerts for development
       description: Returns sample alert messages that expire in 2034, intended for development and integration testing.
@@ -227,98 +227,21 @@ paths:
         '500':
           description: Internal Server Error
 components:
-  parameters:
-    lat:
-      name: lat
-      in: query
-      required: false
-      description: Latitude for coordinate-based geographic search
-      schema:
-        type: number
-        format: float
-        example: 59.91
-    event:
-      name: event
-      in: query
-      required: false
-      description: Filter by weather warning event type
-      schema:
-        type: string
-        enum:
-        - blowingSnow
-        - forestFire
-        - gale
-        - ice
-        - icing
-        - lightning
-        - polarLow
-        - rain
-        - rainFlood
-        - snow
-        - stormSurge
-        - wind
-        example: wind
-    lon:
-      name: lon
-      in: query
-      required: false
-      description: Longitude for coordinate-based geographic search
-      schema:
-        type: number
-        format: float
-        example: 10.75
-    county:
-      name: county
-      in: query
-      required: false
-      description: Two-digit Norwegian county number (land alerts only)
-      schema:
-        type: string
-        pattern: ^\d{2}$
-        example: '11'
-    lang:
-      name: lang
-      in: query
-      required: false
-      description: Output language
-      schema:
-        type: string
-        enum:
-        - 'no'
-        - en
-        example: en
-    geographicDomain:
-      name: geographicDomain
-      in: query
-      required: false
-      description: Filter by geographic domain
-      schema:
-        type: string
-        enum:
-        - land
-        - marine
-    cap:
-      name: cap
-      in: query
-      required: false
-      description: CAP identifier to retrieve a specific CAP XML message
-      schema:
-        type: string
-    sort:
-      name: sort
-      in: query
-      required: false
-      description: Sort RSS result items by field
-      schema:
-        type: string
-        enum:
-        - area
-        - event
-        - incidentName
-        - t_onset
-        - t_published
-        - type
   schemas:
+    AlertFeature:
+      title: Alert Feature
+      type: object
+      description: GeoJSON Feature representing a single weather alert
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          type: object
+          description: Geographic area covered by the alert (Polygon or MultiPolygon)
+        properties:
+          $ref: '#/components/schemas/AlertProperties'
     AlertCollection:
       title: Alert Collection
       type: object
@@ -414,20 +337,97 @@ components:
               uri:
                 type: string
                 format: uri
-    AlertFeature:
-      title: Alert Feature
-      type: object
-      description: GeoJSON Feature representing a single weather alert
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          type: object
-          description: Geographic area covered by the alert (Polygon or MultiPolygon)
-        properties:
-          $ref: '#/components/schemas/AlertProperties'
+  parameters:
+    lon:
+      name: lon
+      in: query
+      required: false
+      description: Longitude for coordinate-based geographic search
+      schema:
+        type: number
+        format: float
+        example: 10.75
+    geographicDomain:
+      name: geographicDomain
+      in: query
+      required: false
+      description: Filter by geographic domain
+      schema:
+        type: string
+        enum:
+        - land
+        - marine
+    county:
+      name: county
+      in: query
+      required: false
+      description: Two-digit Norwegian county number (land alerts only)
+      schema:
+        type: string
+        pattern: ^\d{2}$
+        example: '11'
+    sort:
+      name: sort
+      in: query
+      required: false
+      description: Sort RSS result items by field
+      schema:
+        type: string
+        enum:
+        - area
+        - event
+        - incidentName
+        - t_onset
+        - t_published
+        - type
+    lat:
+      name: lat
+      in: query
+      required: false
+      description: Latitude for coordinate-based geographic search
+      schema:
+        type: number
+        format: float
+        example: 59.91
+    cap:
+      name: cap
+      in: query
+      required: false
+      description: CAP identifier to retrieve a specific CAP XML message
+      schema:
+        type: string
+    event:
+      name: event
+      in: query
+      required: false
+      description: Filter by weather warning event type
+      schema:
+        type: string
+        enum:
+        - blowingSnow
+        - forestFire
+        - gale
+        - ice
+        - icing
+        - lightning
+        - polarLow
+        - rain
+        - rainFlood
+        - snow
+        - stormSurge
+        - wind
+        example: wind
+    lang:
+      name: lang
+      in: query
+      required: false
+      description: Output language
+      schema:
+        type: string
+        enum:
+        - 'no'
+        - en
+        example: en
 externalDocs:
   description: Official documentation
-  url: https://api.met.no/weatherapi/locationforecast/2.0/documentation
+  url: https://api.met.no/weatherapi/metalerts/2.0/documentation

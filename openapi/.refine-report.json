@@ -1,18 +1,34 @@
 {
   "provider": "yr-no",
   "sources": [
-    "yr-no-alerts-api-openapi.yml",
-    "yr-no-data-api-openapi.yml",
-    "yr-no-metadata-api-openapi.yml"
+    "_original/yr-no-locationforecast-openapi.yml",
+    "_original/yr-no-metalerts-openapi.yml",
+    "_original/yr-no-nowcast-openapi.yml",
+    "_original/yr-no-oceanforecast-openapi.yml",
+    "_original/yr-no-sunrise-openapi.yml"
   ],
   "outputs": [
-    "yr-no-alerts-api-openapi.yml",
     "yr-no-data-api-openapi.yml",
-    "yr-no-metadata-api-openapi.yml"
+    "yr-no-metadata-api-openapi.yml",
+    "yr-no-alerts-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (5 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "yr-no-locationforecast-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "yr-no-metalerts-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "yr-no-nowcast-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "yr-no-oceanforecast-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "yr-no-sunrise-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tag 'data' spans 4 source specs (yr-no-locationforecast-openapi.yml, yr-no-nowcast-openapi.yml, yr-no-oceanforecast-openapi.yml, yr-no-sunrise-openapi.yml): per-path servers applied",
+    "tag 'metadata' spans 5 source specs (yr-no-locationforecast-openapi.yml, yr-no-metalerts-openapi.yml, yr-no-nowcast-openapi.yml, yr-no-oceanforecast-openapi.yml, yr-no-sunrise-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "yr-no-alerts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yr-no-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "yr-no-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
