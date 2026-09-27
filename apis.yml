@@ -92,7 +92,7 @@ apis:
   - type: Documentation
     url: https://api.met.no/weatherapi/airqualityforecast/0.1/documentation
 - aid: yr-no:yr-no-alerts-api
-  name: Yr alerts API
+  name: Yr Alerts API
   description: Weather alert endpoints
   humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
   baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
@@ -116,7 +116,7 @@ apis:
   - type: Documentation
     url: https://api.met.no/weatherapi/radar/2.0/documentation
 - aid: yr-no:yr-no-data-api
-  name: Yr data API
+  name: Yr Data API
   description: Forecast data endpoints
   humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
   baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
@@ -140,7 +140,7 @@ apis:
   - type: Documentation
     url: https://api.met.no/weatherapi/radar/2.0/documentation
 - aid: yr-no:yr-no-metadata-api
-  name: Yr metadata API
+  name: Yr Metadata API
   description: Service metadata endpoints
   humanURL: https://api.met.no/weatherapi/locationforecast/2.0/documentation
   baseURL: https://api.met.no/weatherapi/locationforecast/2.0/
