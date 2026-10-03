@@ -228,17 +228,15 @@ paths:
           description: Internal Server Error
 components:
   parameters:
-    lang:
-      name: lang
+    county:
+      name: county
       in: query
       required: false
-      description: Output language
+      description: Two-digit Norwegian county number (land alerts only)
       schema:
         type: string
-        enum:
-        - 'no'
-        - en
-        example: en
+        pattern: ^\d{2}$
+        example: '11'
     sort:
       name: sort
       in: query
@@ -253,50 +251,6 @@ components:
         - t_onset
         - t_published
         - type
-    lon:
-      name: lon
-      in: query
-      required: false
-      description: Longitude for coordinate-based geographic search
-      schema:
-        type: number
-        format: float
-        example: 10.75
-    lat:
-      name: lat
-      in: query
-      required: false
-      description: Latitude for coordinate-based geographic search
-      schema:
-        type: number
-        format: float
-        example: 59.91
-    county:
-      name: county
-      in: query
-      required: false
-      description: Two-digit Norwegian county number (land alerts only)
-      schema:
-        type: string
-        pattern: ^\d{2}$
-        example: '11'
-    geographicDomain:
-      name: geographicDomain
-      in: query
-      required: false
-      description: Filter by geographic domain
-      schema:
-        type: string
-        enum:
-        - land
-        - marine
-    cap:
-      name: cap
-      in: query
-      required: false
-      description: CAP identifier to retrieve a specific CAP XML message
-      schema:
-        type: string
     event:
       name: event
       in: query
@@ -318,21 +272,53 @@ components:
         - stormSurge
         - wind
         example: wind
+    lat:
+      name: lat
+      in: query
+      required: false
+      description: Latitude for coordinate-based geographic search
+      schema:
+        type: number
+        format: float
+        example: 59.91
+    lang:
+      name: lang
+      in: query
+      required: false
+      description: Output language
+      schema:
+        type: string
+        enum:
+        - 'no'
+        - en
+        example: en
+    lon:
+      name: lon
+      in: query
+      required: false
+      description: Longitude for coordinate-based geographic search
+      schema:
+        type: number
+        format: float
+        example: 10.75
+    geographicDomain:
+      name: geographicDomain
+      in: query
+      required: false
+      description: Filter by geographic domain
+      schema:
+        type: string
+        enum:
+        - land
+        - marine
+    cap:
+      name: cap
+      in: query
+      required: false
+      description: CAP identifier to retrieve a specific CAP XML message
+      schema:
+        type: string
   schemas:
-    AlertFeature:
-      title: Alert Feature
-      type: object
-      description: GeoJSON Feature representing a single weather alert
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          type: object
-          description: Geographic area covered by the alert (Polygon or MultiPolygon)
-        properties:
-          $ref: '#/components/schemas/AlertProperties'
     AlertProperties:
       title: Alert Properties
       type: object
@@ -415,6 +401,20 @@ components:
               uri:
                 type: string
                 format: uri
+    AlertFeature:
+      title: Alert Feature
+      type: object
+      description: GeoJSON Feature representing a single weather alert
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          type: object
+          description: Geographic area covered by the alert (Polygon or MultiPolygon)
+        properties:
+          $ref: '#/components/schemas/AlertProperties'
     AlertCollection:
       title: Alert Collection
       type: object
