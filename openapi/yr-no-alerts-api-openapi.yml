@@ -228,29 +228,6 @@ paths:
           description: Internal Server Error
 components:
   parameters:
-    county:
-      name: county
-      in: query
-      required: false
-      description: Two-digit Norwegian county number (land alerts only)
-      schema:
-        type: string
-        pattern: ^\d{2}$
-        example: '11'
-    sort:
-      name: sort
-      in: query
-      required: false
-      description: Sort RSS result items by field
-      schema:
-        type: string
-        enum:
-        - area
-        - event
-        - incidentName
-        - t_onset
-        - t_published
-        - type
     event:
       name: event
       in: query
@@ -272,15 +249,6 @@ components:
         - stormSurge
         - wind
         example: wind
-    lat:
-      name: lat
-      in: query
-      required: false
-      description: Latitude for coordinate-based geographic search
-      schema:
-        type: number
-        format: float
-        example: 59.91
     lang:
       name: lang
       in: query
@@ -292,6 +260,38 @@ components:
         - 'no'
         - en
         example: en
+    sort:
+      name: sort
+      in: query
+      required: false
+      description: Sort RSS result items by field
+      schema:
+        type: string
+        enum:
+        - area
+        - event
+        - incidentName
+        - t_onset
+        - t_published
+        - type
+    lat:
+      name: lat
+      in: query
+      required: false
+      description: Latitude for coordinate-based geographic search
+      schema:
+        type: number
+        format: float
+        example: 59.91
+    county:
+      name: county
+      in: query
+      required: false
+      description: Two-digit Norwegian county number (land alerts only)
+      schema:
+        type: string
+        pattern: ^\d{2}$
+        example: '11'
     lon:
       name: lon
       in: query
@@ -301,6 +301,13 @@ components:
         type: number
         format: float
         example: 10.75
+    cap:
+      name: cap
+      in: query
+      required: false
+      description: CAP identifier to retrieve a specific CAP XML message
+      schema:
+        type: string
     geographicDomain:
       name: geographicDomain
       in: query
@@ -311,14 +318,34 @@ components:
         enum:
         - land
         - marine
-    cap:
-      name: cap
-      in: query
-      required: false
-      description: CAP identifier to retrieve a specific CAP XML message
-      schema:
-        type: string
   schemas:
+    AlertFeature:
+      title: Alert Feature
+      type: object
+      description: GeoJSON Feature representing a single weather alert
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          type: object
+          description: Geographic area covered by the alert (Polygon or MultiPolygon)
+        properties:
+          $ref: '#/components/schemas/AlertProperties'
+    AlertCollection:
+      title: Alert Collection
+      type: object
+      description: GeoJSON FeatureCollection of weather alert features. Each feature represents one alert with geographic and attribute data.
+      properties:
+        type:
+          type: string
+          enum:
+          - FeatureCollection
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertFeature'
     AlertProperties:
       title: Alert Properties
       type: object
@@ -401,33 +428,6 @@ components:
               uri:
                 type: string
                 format: uri
-    AlertFeature:
-      title: Alert Feature
-      type: object
-      description: GeoJSON Feature representing a single weather alert
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          type: object
-          description: Geographic area covered by the alert (Polygon or MultiPolygon)
-        properties:
-          $ref: '#/components/schemas/AlertProperties'
-    AlertCollection:
-      title: Alert Collection
-      type: object
-      description: GeoJSON FeatureCollection of weather alert features. Each feature represents one alert with geographic and attribute data.
-      properties:
-        type:
-          type: string
-          enum:
-          - FeatureCollection
-        features:
-          type: array
-          items:
-            $ref: '#/components/schemas/AlertFeature'
 externalDocs:
   description: Official documentation
   url: https://api.met.no/weatherapi/metalerts/2.0/documentation

@@ -381,35 +381,6 @@ paths:
       description: MET Norway Sunrise API
 components:
   schemas:
-    SymbolConfidence:
-      type: string
-      description: Estimate of certainty for a weather symbol
-      enum:
-      - certain
-      - somewhat certain
-      - uncertain
-    METJSONForecast:
-      title: GeoJSON Forecast Timeseries
-      type: object
-      required:
-      - type
-      - geometry
-      - properties
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-          example: Feature
-        geometry:
-          $ref: '#/components/schemas/PointGeometry'
-        properties:
-          $ref: '#/components/schemas/Forecast'
-    ForecastData:
-      type: object
-      description: Map of weather parameter names to their float values. Common parameters include air_temperature (celsius), wind_speed (m/s), wind_from_direction (degrees), precipitation_amount (mm), relative_humidity (%), cloud_area_fraction (%), and ultraviolet_index_clear_sky.
-      additionalProperties:
-        type: number
     WeatherSymbol:
       type: string
       description: Identifier summarizing the weather condition for a time period. See https://api.met.no/weatherapi/weathericon/2.0/ for icon images.
@@ -498,21 +469,30 @@ components:
       - heavysleetshowersandthunder_day
       - heavysleetshowersandthunder_night
       - heavysleetshowersandthunder_polartwilight
-    ForecastSummary:
+    Forecast:
+      title: Forecast Timeseries
       type: object
-      description: Summary of weather conditions for a time period
       required:
-      - symbol_code
+      - meta
+      - timeseries
       properties:
-        symbol_code:
-          $ref: '#/components/schemas/WeatherSymbol'
-        symbol_confidence:
-          $ref: '#/components/schemas/SymbolConfidence'
-    ForecastUnits:
-      type: object
-      description: Map of parameter names to their unit strings
-      additionalProperties:
-        type: string
+        meta:
+          type: object
+          required:
+          - updated_at
+          - units
+          properties:
+            updated_at:
+              type: string
+              format: date-time
+              description: Timestamp when this forecast was last updated
+              example: '2024-01-15T06:00:00Z'
+            units:
+              $ref: '#/components/schemas/ForecastUnits'
+        timeseries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ForecastTimeStep'
     ForecastTimeStep:
       title: Forecast Time Step
       type: object
@@ -559,6 +539,50 @@ components:
                   $ref: '#/components/schemas/ForecastSummary'
                 details:
                   $ref: '#/components/schemas/ForecastData'
+    ForecastData:
+      type: object
+      description: Map of weather parameter names to their float values. Common parameters include air_temperature (celsius), wind_speed (m/s), wind_from_direction (degrees), precipitation_amount (mm), relative_humidity (%), cloud_area_fraction (%), and ultraviolet_index_clear_sky.
+      additionalProperties:
+        type: number
+    SymbolConfidence:
+      type: string
+      description: Estimate of certainty for a weather symbol
+      enum:
+      - certain
+      - somewhat certain
+      - uncertain
+    METJSONForecast:
+      title: GeoJSON Forecast Timeseries
+      type: object
+      required:
+      - type
+      - geometry
+      - properties
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+          example: Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry'
+        properties:
+          $ref: '#/components/schemas/Forecast'
+    ForecastSummary:
+      type: object
+      description: Summary of weather conditions for a time period
+      required:
+      - symbol_code
+      properties:
+        symbol_code:
+          $ref: '#/components/schemas/WeatherSymbol'
+        symbol_confidence:
+          $ref: '#/components/schemas/SymbolConfidence'
+    ForecastUnits:
+      type: object
+      description: Map of parameter names to their unit strings
+      additionalProperties:
+        type: string
     PointGeometry:
       title: GeoJSON Point Geometry
       type: object
@@ -581,8 +605,8 @@ components:
           - 9.58
           - 60.1
           - 200
-    Forecast:
-      title: Forecast Timeseries
+    Forecast_2:
+      title: Nowcast Timeseries
       type: object
       required:
       - meta
@@ -598,48 +622,14 @@ components:
               type: string
               format: date-time
               description: Timestamp when this forecast was last updated
-              example: '2024-01-15T06:00:00Z'
             units:
               $ref: '#/components/schemas/ForecastUnits'
+            radar_coverage:
+              $ref: '#/components/schemas/RadarCoverage'
         timeseries:
           type: array
           items:
-            $ref: '#/components/schemas/ForecastTimeStep'
-    METJSONForecast_2:
-      title: GeoJSON Nowcast Timeseries
-      type: object
-      required:
-      - type
-      - geometry
-      - properties
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          $ref: '#/components/schemas/PointGeometry_2'
-        properties:
-          $ref: '#/components/schemas/Forecast_2'
-    ForecastData_2:
-      type: object
-      description: Map of weather parameter names to their float values. Nowcast parameters include precipitation_rate (mm/h), wind_speed (m/s), wind_from_direction (degrees), and air_temperature (celsius).
-      additionalProperties:
-        type: number
-    ForecastSummary_2:
-      type: object
-      required:
-      - symbol_code
-      properties:
-        symbol_code:
-          type: string
-          description: Weather symbol identifier for this period
-        symbol_confidence:
-          type: string
-          enum:
-          - certain
-          - somewhat certain
-          - uncertain
+            $ref: '#/components/schemas/ForecastTimeStep_2'
     ForecastTimeStep_2:
       title: Nowcast Time Step
       type: object
@@ -666,6 +656,48 @@ components:
                   $ref: '#/components/schemas/ForecastSummary_2'
                 details:
                   $ref: '#/components/schemas/ForecastData_2'
+    ForecastData_2:
+      type: object
+      description: Map of weather parameter names to their float values. Nowcast parameters include precipitation_rate (mm/h), wind_speed (m/s), wind_from_direction (degrees), and air_temperature (celsius).
+      additionalProperties:
+        type: number
+    METJSONForecast_2:
+      title: GeoJSON Nowcast Timeseries
+      type: object
+      required:
+      - type
+      - geometry
+      - properties
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry_2'
+        properties:
+          $ref: '#/components/schemas/Forecast_2'
+    ForecastSummary_2:
+      type: object
+      required:
+      - symbol_code
+      properties:
+        symbol_code:
+          type: string
+          description: Weather symbol identifier for this period
+        symbol_confidence:
+          type: string
+          enum:
+          - certain
+          - somewhat certain
+          - uncertain
+    RadarCoverage:
+      type: string
+      description: Radar coverage status for the requested location
+      enum:
+      - ok
+      - temporarily unavailable
+      - no coverage
     PointGeometry_2:
       title: GeoJSON Point Geometry
       type: object
@@ -686,8 +718,8 @@ components:
           example:
           - 10.75
           - 59.91
-    Forecast_2:
-      title: Nowcast Timeseries
+    Forecast_3:
+      title: Ocean Forecast Timeseries
       type: object
       required:
       - meta
@@ -705,35 +737,10 @@ components:
               description: Timestamp when this forecast was last updated
             units:
               $ref: '#/components/schemas/ForecastUnits'
-            radar_coverage:
-              $ref: '#/components/schemas/RadarCoverage'
         timeseries:
           type: array
           items:
-            $ref: '#/components/schemas/ForecastTimeStep_2'
-    RadarCoverage:
-      type: string
-      description: Radar coverage status for the requested location
-      enum:
-      - ok
-      - temporarily unavailable
-      - no coverage
-    METJSONForecast_3:
-      title: GeoJSON Ocean Forecast Timeseries
-      type: object
-      required:
-      - type
-      - geometry
-      - properties
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          $ref: '#/components/schemas/PointGeometry_3'
-        properties:
-          $ref: '#/components/schemas/Forecast_3'
+            $ref: '#/components/schemas/ForecastTimeStep_3'
     ForecastTimeStep_3:
       title: Ocean Forecast Time Step
       type: object
@@ -763,6 +770,22 @@ components:
               properties:
                 details:
                   $ref: '#/components/schemas/OceanForecastData'
+    METJSONForecast_3:
+      title: GeoJSON Ocean Forecast Timeseries
+      type: object
+      required:
+      - type
+      - geometry
+      - properties
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry_3'
+        properties:
+          $ref: '#/components/schemas/Forecast_3'
     OceanForecastData:
       type: object
       description: Ocean forecast parameters. Common parameters include sea_surface_wave_height (m), sea_surface_wave_from_direction (degrees), sea_surface_swell_wave_height (m), sea_water_temperature (celsius), sea_water_speed (m/s), sea_water_to_direction (degrees), and sea_water_salinity (psu).
@@ -788,55 +811,6 @@ components:
           example:
           - 5.0
           - 60.0
-    Forecast_3:
-      title: Ocean Forecast Timeseries
-      type: object
-      required:
-      - meta
-      - timeseries
-      properties:
-        meta:
-          type: object
-          required:
-          - updated_at
-          - units
-          properties:
-            updated_at:
-              type: string
-              format: date-time
-              description: Timestamp when this forecast was last updated
-            units:
-              $ref: '#/components/schemas/ForecastUnits'
-        timeseries:
-          type: array
-          items:
-            $ref: '#/components/schemas/ForecastTimeStep_3'
-    MoonResponse:
-      title: Moon Events Response
-      type: object
-      description: GeoJSON Feature containing moon event data for the requested location and date
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          $ref: '#/components/schemas/PointGeometry_4'
-        properties:
-          $ref: '#/components/schemas/MoonProperties'
-    SunResponse:
-      title: Sun Events Response
-      type: object
-      description: GeoJSON Feature containing sun event data for the requested location and date
-      properties:
-        type:
-          type: string
-          enum:
-          - Feature
-        geometry:
-          $ref: '#/components/schemas/PointGeometry_4'
-        properties:
-          $ref: '#/components/schemas/SunProperties'
     CelestialEventWithElevation:
       title: Celestial Event With Elevation
       type: object
@@ -849,34 +823,6 @@ components:
         elevation:
           type: number
           description: Elevation angle above the horizon in degrees
-    SunProperties:
-      title: Sun Event Properties
-      type: object
-      properties:
-        body:
-          type: string
-          description: Celestial body name
-          example: Sun
-        sunrise:
-          $ref: '#/components/schemas/CelestialEvent'
-        sunset:
-          $ref: '#/components/schemas/CelestialEvent'
-        solarnoon:
-          $ref: '#/components/schemas/CelestialEventWithElevation'
-        solarmidnight:
-          $ref: '#/components/schemas/CelestialEventWithElevation'
-    CelestialEvent:
-      title: Celestial Event
-      type: object
-      description: A celestial body event with timestamp and azimuth
-      properties:
-        time:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of the event (in requested timezone offset)
-        azimuth:
-          type: number
-          description: Compass bearing in degrees (0=North, 90=East, 180=South, 270=West)
     MoonProperties:
       title: Moon Event Properties
       type: object
@@ -902,6 +848,60 @@ components:
             illumination:
               type: number
               description: Percentage of moon surface illuminated
+    SunResponse:
+      title: Sun Events Response
+      type: object
+      description: GeoJSON Feature containing sun event data for the requested location and date
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry_4'
+        properties:
+          $ref: '#/components/schemas/SunProperties'
+    SunProperties:
+      title: Sun Event Properties
+      type: object
+      properties:
+        body:
+          type: string
+          description: Celestial body name
+          example: Sun
+        sunrise:
+          $ref: '#/components/schemas/CelestialEvent'
+        sunset:
+          $ref: '#/components/schemas/CelestialEvent'
+        solarnoon:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+        solarmidnight:
+          $ref: '#/components/schemas/CelestialEventWithElevation'
+    MoonResponse:
+      title: Moon Events Response
+      type: object
+      description: GeoJSON Feature containing moon event data for the requested location and date
+      properties:
+        type:
+          type: string
+          enum:
+          - Feature
+        geometry:
+          $ref: '#/components/schemas/PointGeometry_4'
+        properties:
+          $ref: '#/components/schemas/MoonProperties'
+    CelestialEvent:
+      title: Celestial Event
+      type: object
+      description: A celestial body event with timestamp and azimuth
+      properties:
+        time:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the event (in requested timezone offset)
+        azimuth:
+          type: number
+          description: Compass bearing in degrees (0=North, 90=East, 180=South, 270=West)
     PointGeometry_4:
       title: GeoJSON Point Geometry
       type: object
@@ -1014,6 +1014,15 @@ components:
         type: string
         pattern: ^[+-]\d{2}:\d{2}$
         example: +02:00
+    date:
+      name: date
+      in: query
+      required: false
+      description: Date in YYYY-MM-DD format in local time (not UTC). Defaults to today if not provided.
+      schema:
+        type: string
+        format: date
+        example: '2024-06-21'
     lat_4:
       name: lat
       in: query
@@ -1036,15 +1045,6 @@ components:
         minimum: -180
         maximum: 180
         example: 10.75
-    date:
-      name: date
-      in: query
-      required: false
-      description: Date in YYYY-MM-DD format in local time (not UTC). Defaults to today if not provided.
-      schema:
-        type: string
-        format: date
-        example: '2024-06-21'
 x-refined-from:
 - yr-no-locationforecast-openapi.yml
 - yr-no-nowcast-openapi.yml
