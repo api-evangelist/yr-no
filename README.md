@@ -66,46 +66,158 @@
 
 Yr is a weather service from the Norwegian Meteorological Institute (MET Norway) and the Norwegian Broadcasting Corporation (NRK), providing free, high-quality weather forecasts for locations worldwide via a simple REST interface. The MET Weather API offers a comprehensive suite of products including location-based forecasts, weather alerts, nowcasts, ocean forecasts, aviation weather, sunrise and sun event calculations, radar imagery, and historical meteorological observation data. All data is open under CC BY 4.0 and requires only a User-Agent identification header — no API key or account is needed.
 
-**Website:** https://www.yr.no/en  
-**Developer Portal:** https://developer.yr.no/  
-**API Base URL:** https://api.met.no/  
-**Terms of Service:** https://developer.yr.no/doc/TermsOfService/  
-**License:** CC BY 4.0  
-**GitHub (Yr):** https://github.com/YR  
-**GitHub (MET Norway):** https://github.com/metno  
+**Areas:** Weather · Forecast · Meteorology · Climate · Norway · Nordic · Open Data · Aviation Weather · Marine Weather · Alerts
 
-## APIs
+## Yr on APIs.io
 
-| API | Description |
-|-----|-------------|
-| [Locationforecast 2.0](https://api.met.no/weatherapi/locationforecast/2.0/documentation) | 9-day weather forecasts for any location on Earth |
-| [MetAlerts 2.0](https://api.met.no/weatherapi/metalerts/2.0/documentation) | Weather warnings and alerts from MET Norway |
-| [Nowcast 2.0](https://api.met.no/weatherapi/nowcast/2.0/documentation) | Immediate short-range forecasts for the Nordic area |
-| [Sunrise 3.0](https://api.met.no/weatherapi/sunrise/3.0/documentation) | Sun and moon event calculations for any location |
-| [Frost 0.9](https://frost.met.no/howto.html) | Historical meteorological observation data |
-| [Oceanforecast 2.0](https://api.met.no/weatherapi/oceanforecast/2.0/documentation) | Ocean forecasts for Northwestern European waters |
-| [Radar 2.0](https://api.met.no/weatherapi/radar/2.0/documentation) | Radar composite images for Nordic regions |
-| [Air Quality Forecast 0.1](https://api.met.no/weatherapi/airqualityforecast/0.1/documentation) | Air quality forecasts for Norway |
+Everything profiled for Yr is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/yr-no/](https://apis.io/providers/yr-no/)** — or go straight to one of the APIs or properties below.
 
-## Authentication
+### APIs (5)
 
-No API key or account registration is required. All requests must include a descriptive `User-Agent` header identifying your application and providing a contact email or URL:
+- [Frost API](https://apis.io/apis/yr-no/frost-api/) — REST API for historical meteorological observation data from weather stations worldwide, maintained by MET Norway. Access time-series temperature,…
+- [Air Quality Forecast API](https://apis.io/apis/yr-no/air-quality-forecast-api/) — Forecasts of air quality for locations in Norway, including concentrations of PM2.5, PM10, NO2, and ozone, with daily and hourly granularity.
+- [Yr Alerts API](https://apis.io/apis/yr-no/yr-no-alerts-api/) — Weather alert endpoints
+- [Yr Data API](https://apis.io/apis/yr-no/yr-no-data-api/) — Forecast data endpoints
+- [Yr Metadata API](https://apis.io/apis/yr-no/yr-no-metadata-api/) — Service metadata endpoints
 
-```
-User-Agent: myapp.example.com support@example.com
-```
+### Published properties
 
-## Rate Limits
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- Maximum 20 requests per second per application (aggregate across all clients)
-- MetAlerts polling: no more than once per 10 minutes per client
-- Coordinates must be truncated to 4 decimal places maximum
-- Proper HTTP caching (Expires / If-Modified-Since) is required
+#### Agentic access (1)
 
-## Pricing
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Free. No charges, no tiers, no billing. Funded by the Norwegian government.
+- [Yr No Agentic Access](https://apis.io/agentic-access/yr-no/yr-no-agentic-access/)
 
----
+#### JSON Schema (2)
 
-This repository is an [APIs.json](https://apisjson.org/) index profile maintained by [API Evangelist](https://apievangelist.com/).
+The data models the API reads and writes.
+
+- [MET Norway MetAlerts GeoJSON Schema](https://apis.io/schemas/yr-no/yr-no-alert/)
+- [MET Norway Forecast Response Schema](https://apis.io/schemas/yr-no/yr-no-forecast/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Yr No Context](https://apis.io/jsonld/yr-no/yr-no-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Yr / MET Norway API Vocabulary](https://apis.io/vocabularies/yr-no/yr-no-vocabulary/)
+
+#### Examples (4)
+
+Example requests and responses.
+
+- [Yr No Compact Forecast Example](https://apis.io/examples/yr-no/yr-no-compact-forecast-example/)
+- [Yr No Metalert Example](https://apis.io/examples/yr-no/yr-no-metalert-example/)
+- [Yr No Oceanforecast Example](https://apis.io/examples/yr-no/yr-no-oceanforecast-example/)
+- [Yr No Sunrise Example](https://apis.io/examples/yr-no/yr-no-sunrise-example/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [Locationforecast alerts API](https://apis.io/collections/yr-no/open-yr-no-alerts-api/)
+- [Locationforecast alerts data API](https://apis.io/collections/yr-no/open-yr-no-data-api/)
+- [Locationforecast alerts metadata API](https://apis.io/collections/yr-no/open-yr-no-metadata-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Yr — jsonschema rules](https://apis.io/rules/yr-no/yr-no-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Yr No Domain Security](https://apis.io/security/yr-no/yr-no-domain-security/)
+- [Yr No Vulnerability Disclosure](https://apis.io/security/yr-no/yr-no-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Yr No Plans Pricing](https://apis.io/plans/yr-no/yr-no-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Yr No Rate Limits](https://apis.io/rate-limits/yr-no/yr-no-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Yr No Finops](https://apis.io/finops/yr-no/yr-no-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.yr.no/en)
+- [Documentation](https://developer.yr.no/)
+- [Getting started](https://developer.yr.no/doc/GettingStarted/)
+- [Pricing](https://developer.yr.no/doc/TermsOfService/)
+- [Blog](https://developer.yr.no/)
+- [Terms of service](https://developer.yr.no/doc/TermsOfService/)
+- [Privacy policy](https://www.met.no/en/About-us/privacy)
+
+## API Evangelist rating
+
+**Kin Score 36.2** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 53.5 |
+| Contract governance | 9.8 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 36.8 |
+
+**Agent readiness 20.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 24.5** — Government & Public Sector
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/yr-no/](https://apis.io/providers/yr-no/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Yr: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/yr-no/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
